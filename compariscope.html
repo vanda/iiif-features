@@ -432,14 +432,14 @@
       e = e || window.event;
       if( e.preventDefault ){ e.preventDefault(); }else{ e.returnValue=false; }
       var z, d1, tD = e.timeStamp-dragZoom.el.zT;
-      zZ = tD>500 ? 1 : (tD>20 ? 5 : 60);
+      zZ = tD<10 ? 25 : 1;
       if( e.touches ){
         d1 = Math.sqrt(Math.pow(e.touches[0].pageX-e.touches[1].pageX,2)+Math.pow(e.touches[0].pageY-e.touches[1].pageY,2));
         z = 1+((d1-dragZoom.d0>0?(d1/dragZoom.el.whP[0]):-0.5)*0.1);
         dragZoom.d0 = d1;
       }else{
         z = (e.detail? e.detail*-1 : e.wheelDelta/40); 
-        z = 1+((z>0?1:-1)*0.001*zZ);
+        z = 1+((z>0?1:-1)*0.002*zZ);
       }
       dragZoom.el.zT = e.timeStamp;
       dragZoom.el.zoom(z);
