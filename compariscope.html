@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <!--
-  A demo app (just ES5 here), runs standalone in a browser, intended for embedding within a CMS.
+  A demo app, runs standalone in a browser, intended for embedding within a CMS.
   Useful for the alignment of overlayed images, served by the IIIF Image API,
   and providing an interactive viewer for overlayed images, presented fluidly, using responsive image tags.
   -->
@@ -439,7 +439,7 @@
         dragZoom.d0 = d1;
       }else{
         z = (e.detail? e.detail*-1 : e.wheelDelta/40); 
-        z = 1+((z>0?1:-1)*0.002*zZ);
+        z = 1+((z>0?1:-1)*0.005*zZ);
       }
       dragZoom.el.zT = e.timeStamp;
       dragZoom.el.zoom(z);
