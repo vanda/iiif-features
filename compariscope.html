@@ -229,7 +229,7 @@
 
   mode.onclick = function(e){
     var img, i,
-      html = sizes = '', srcset, src,
+      html = sizes = logs = '', srcset, src,
       duo = compariscope.imgs.length===2,
       variants = [320, 640, 960, 1280, 1920], v,
       variant1 = duo? '960' : '1920';
@@ -243,6 +243,7 @@
         return;
       }
       src = img.src.replace('/full/full/', '/pct:'+Number(Math.round((-100*img.xy[0]/img.wh[0])+"e+3")+"e-3")+','+Number(Math.round((-100*img.xy[1]/img.wh[1])+"e+3")+"e-3")+','+Number(Math.round((100*img.whP[0]/img.wh[0])+"e+3")+"e-3")+','+Number(Math.round((100*img.whP[1]/img.wh[1])+"e+3")+"e-3")+'/full/');
+      logs += src + '\n';
       for( v=0; v<variants.length; ++v ){
         if( v>0 ) srcset += ', ';
         srcset += (src.replace('full', variants[v]+',') + ' '+variants[v]+'w');
@@ -258,6 +259,7 @@
     mixer.classList.remove('cs-splitter');
     wrapper.classList.toggle('cs-preview');
     if( wrapper.classList.contains('cs-preview') ){
+      alert(logs);
       if( duo ){
         viewer.classList.add('cs-split');
         mixer.classList.remove('display-none');
