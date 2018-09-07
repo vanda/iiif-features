@@ -252,6 +252,7 @@
       src = src.replace('full', variant1+',');
       html += '<img src="'+src+'" srcset="'+srcset+'" sizes="'+sizes+'">';
     }
+    console.log(logs);
     viewer.innerHTML = html;
     viewer.classList.remove('cs-split');
     viewer.classList.remove('cs-unsplit');
@@ -259,7 +260,6 @@
     mixer.classList.remove('cs-splitter');
     wrapper.classList.toggle('cs-preview');
     if( wrapper.classList.contains('cs-preview') ){
-      alert(logs);
       if( duo ){
         viewer.classList.add('cs-split');
         mixer.classList.remove('display-none');
