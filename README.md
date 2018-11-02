@@ -2,11 +2,13 @@
 Code and demos around the use of IIIF, including:
 
 ## [The Compariscope](compariscope.html)
-A demo app (just ES5 here), which runs stand-alone in a browser, intended for embedding within a CMS. 
+A utility app which runs stand-alone in a browser, intended for embedding within a CMS. 
 Useful for the alignment of overlayed images, served by the IIIF Image API, and providing an interactive viewer for overlayed images, presented fluidly, using responsive image tags.
 
-Try it out by pasting in some full IIIF Image URLs, like these for example, thanks to Yale:
+Try it out by pasting in some full IIIF Image URIs, such as [framemark.vam.ac.uk/collections/2018KU6176/full/full/0/default.jpg](https://framemark.vam.ac.uk/collections/2018KU6176/full/full/0/default.jpg)
 
-https://images.britishart.yale.edu/iiif/a866e10e-5a6f-4b87-b4ec-6f0488940796/full/full/0/native.jpg
+## [A stop-motion viewer](frameAnimator.html)
+A prototype viewer for interacting with stop-motion image sets, such as Edweard Muybridge produced in his work Animal Locomotion.
 
-https://images.britishart.yale.edu/iiif/745550dc-83ed-4a23-8dab-fde3532741f9/full/full/0/native.jpg
+## [A perspective viewer](perspectiveViewer.html)
+A prototype viewer for interacting with image sets aproximating 3D scenes, using layers in parallax, such as the many [Peep shows](https://collections.vam.ac.uk/item/O1141038/an-artists-studio-print-engelbrecht-martin) in the V&A's collection.
