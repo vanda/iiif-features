@@ -103,13 +103,17 @@ const painter = {
 };
 
 const qstr = new Map(location.search.slice(1).split('&').map(kv => kv.split('=')));
+let m = 'https://iiif.vam.ac.uk/demos/peepshow/manifest.json';
+
 if (!qstr.has('manifest')) {
-  document.location.search = 'manifest=http://iiif.vam.ac.uk/demos/peepshow/manifest.json';
+  document.location.search = 'manifest=' + m;
+} else {
+  m = qstr.get('manifest');
 }
-manifesto.loadManifest(qstr.get('manifest')).then((manifest) => {
+manifesto.loadManifest(m).then((manifest) => {
   parallaxer.innerHTML = '';
-  const m = manifesto.create(manifest);
-  const cvs = m.getSequences()[0].getCanvases();
+  const mf = manifesto.create(manifest);
+  const cvs = mf.getSequences()[0].getCanvases();
   Array.from(cvs, (cv) => {
     const im = parallaxer.appendChild(document.createElement('img'));
     if (cv.getImages().length) {
