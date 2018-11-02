@@ -10,8 +10,11 @@ Try it out by pasting in some full IIIF Image URIs, such as [framemark.vam.ac.uk
 
 ## [Stop-motion viewer](frameAnimator.html)
 A prototype viewer for interacting with stop-motion image sets, such as Edweard Muybridge produced in his work Animal Locomotion.
+
 **Drag** the image!
+
 
 ## [Perspective viewer](perspectiveViewer.html)
 A prototype viewer for interacting with image sets aproximating 3D scenes, using layers in parallax, such as the many [Peep shows](https://collections.vam.ac.uk/item/O1141038/an-artists-studio-print-engelbrecht-martin) in the V&A's collection.
+
 **Scroll in/out and move** over the viewer!
