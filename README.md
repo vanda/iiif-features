@@ -1,5 +1,6 @@
-# iiif-features from [The Victoria and Albert Museum](vam.ac.uk)
-Code and demos around the use of IIIF, including:
+# iiif-features
+Code and demos around the use of IIIF, 
+from [The Victoria and Albert Museum](vam.ac.uk)
 
 ## [The Compariscope](compariscope.html)
 A utility app which runs stand-alone in a browser, intended for embedding within a CMS. 
