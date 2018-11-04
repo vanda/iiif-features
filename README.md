@@ -1,4 +1,4 @@
-# iiif-features
+# iiif-features from [The Victoria and Albert Museum](vam.ac.uk)
 Code and demos around the use of IIIF, including:
 
 ## [The Compariscope](compariscope.html)
