@@ -1,6 +1,7 @@
 html, body, #cs-wrapper { height:100%; margin:0; text-align:center; }
 body { background:#333; color:#000; font:10px/1 courier,monospace; }
 .display-none { display:none!important; }
+#img-src-input-text { color: #fff; font-size: 14px; }
 #cs-editor { background:#fff url(img/compariscope/cross-hairs.png) 50% 50% no-repeat; height:400px; width:400px; margin:5px auto 20px; outline:2px dashed #f54007; overflow:hidden; position:relative; resize:both; }
 #cs-editor::after { content:"❖"; cursor:pointer; font-size:20px; background:#f54007; line-height:16px; height:16px; width:16px; text-align:center; position:absolute; bottom:0; right:0; }
 #cs-editor img { cursor:pointer; outline:4px dashed #f54007; position:absolute; left:0; top:0; }
