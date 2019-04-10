@@ -6,7 +6,7 @@ from [The Victoria and Albert Museum](vam.ac.uk)
 A utility app which runs stand-alone in a browser, intended for embedding within a CMS. 
 Useful for the alignment of overlayed images, served by the IIIF Image API, and providing an interactive viewer for overlayed images, presented fluidly, using responsive image tags.
 
-Try it out by pasting in some full IIIF Image URIs, such as [framemark.vam.ac.uk/collections/2018KU6176/full/full/0/default.jpg](https://framemark.vam.ac.uk/collections/2018KU6176/full/full/0/default.jpg)
+Try it out by pasting in some full IIIF Image URIs, such as [https://framemark-int.vam.ac.uk/collections/2018KU6176/full/full/0/default.jpg](https://framemark-int.vam.ac.uk/collections/2018KU6176/full/full/0/default.jpg)
 
 
 ## [Stop-motion viewer](https://vanda.github.io/iiif-features/frameAnimator.html)
