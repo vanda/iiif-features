@@ -2,6 +2,10 @@
 Code and demos around the use of IIIF, 
 from [The Victoria and Albert Museum](vam.ac.uk)
 
+## [iiif Image tester](https://vanda.github.io/iiif-features/openSeadragon.html)
+A basic instance of OpenSeadragon to test a iiif image info.json, passed via the querystring
+
+
 ## [The Compariscope](https://vanda.github.io/iiif-features/compariscope.html)
 A utility app which runs stand-alone in a browser, intended for embedding within a CMS. 
 Useful for the alignment of overlayed images, served by the IIIF Image API, and providing an interactive viewer for overlayed images, presented fluidly, using responsive image tags.

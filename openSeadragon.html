@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  <title>iiif Perspective Viewer</title>
+  <style type="text/css">
+    html, body { height:100%; margin:0; }
+    body { background:#000; font:14px/1 helvetica,arial,freesans,sans-serif; }
+    .osd { height:100%; width:100%; }
+  </style>	
+</head>
+
+<body>
+
+<div id="openseadragon1" class="osd"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/openseadragon/2.4.0/openseadragon.min.js"></script>
+<script type="text/javascript">
+
+const qstr = new Map(location.search.slice(1).split('&').map(kv => kv.split('=')));
+let iiifinfo = 'https://framemark.vam.ac.uk//collections/2006AW1873/info.json';
+
+if (!qstr.has('iiifinfo')) {
+  document.location.search = 'iiifinfo=' + iiifinfo;
+} else {
+  iiifinfo = qstr.get('iiifinfo');
+}
+
+const viewer = OpenSeadragon({
+    id: "openseadragon1",
+    prefixUrl: "https://openseadragon.github.io/openseadragon/images/",
+    tileSources: iiifinfo
+});
+</script>
+</body>
+</html>
