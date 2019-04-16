@@ -23,10 +23,16 @@
 const qstr = new Map(location.search.slice(1).split('&').map(kv => kv.split('=')));
 let iiifinfo = 'https://framemark.vam.ac.uk//collections/2006AW1873/info.json';
 
+if (!qstr.has('iiifinfo')) {
+  document.location.search = 'iiifinfo=' + iiifinfo;
+} else {
+  iiifinfo = qstr.get('iiifinfo');
+}
+
 const viewer = OpenSeadragon({
     id: "openseadragon1",
     prefixUrl: "https://openseadragon.github.io/openseadragon/images/",
-    tileSources: "https://framemark.vam.ac.uk/demos/image/v2/an_artists_studio_01/info.json"
+    tileSources: iiifinfo
 });
 </script>
 </body>
