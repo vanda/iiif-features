@@ -21,7 +21,7 @@
 <script type="text/javascript">
 
 const qstr = new Map(location.search.slice(1).split('&').map(kv => kv.split('=')));
-let iiifinfo = 'https://framemark.vam.ac.uk//collections/2006AW1873/info.json';
+let iiifinfo = 'https://framemark.vam.ac.uk/collections/2006AW1873/info.json';
 
 if (!qstr.has('iiifinfo')) {
   document.location.search = 'iiifinfo=' + iiifinfo;
