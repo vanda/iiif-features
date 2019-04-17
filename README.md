@@ -19,7 +19,7 @@ A prototype viewer for interacting with stop-motion image sets, such as Edweard 
 **Drag** the image!
 
 
-## [Perspective viewer](https://vanda.github.io/iiif-features/perspectiveViewer.html)
+## [Parallax viewer](https://vanda.github.io/iiif-features/parallaxViewer.html)
 A prototype viewer for interacting with image sets aproximating 3D scenes, using layers in parallax, such as the many [Peep shows](https://collections.vam.ac.uk/item/O1141038/an-artists-studio-print-engelbrecht-martin) in the V&A's collection.
 
 **Scroll in/out and move** over the viewer!

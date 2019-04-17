@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  <title>iiif Parallax Viewer</title>
+  <style type="text/css">
+    html, body { height:100%; margin:0; }
+    body { background:#000; font:14px/1 helvetica,arial,freesans,sans-serif; }
+    .parallaxer { height:100%; width:100%; }
+  </style>	
+</head>
+
+<body>
+
+<div class="parallaxer js-parallaxer"></div>
+
+<script src="img/manifesto.bundle.js"></script>
+<script src="img/openseadragon.min.js"></script>
+<script type="text/javascript">
+const viewer = {
+  id: 1,
+  init: (el) => {
+    el.id = el.id || 'viewer' + viewer.id++;
+    el.osd = OpenSeadragon({
+      id: el.id,
+      prefixUrl: "https://openseadragon.github.io/openseadragon/images/"
+    });
+    el.xlate = null;
+    el.osd.world.addHandler('add-item', (data) => {
+      const scaler = 4;
+      data.item.source.tileFormat = 'png';
+      el.panZero = el.osd.viewport.getCenter();
+      el.layers = el.osd.world.getItemCount();
+      for (let i = 0; i < el.layers; i++) {
+        el.osd.world.getItemAt(i).setHeight(1 - ((1 - ((i * i / ((el.layers) * (el.layers))))) / scaler));
+      }
+      el.osd.viewport.panTo(el.osd.world.getHomeBounds().getCenter());
+    });
+    el.osd.addHandler('pan', (data) => {
+      const scaler = 8;
+      for (let i = 1; i < el.layers; i++) {
+        el.osd.world.getItemAt(i).setPosition(
+          new OpenSeadragon.Point(
+            -i * i * (data.center.x - el.panZero.x) / scaler,
+            -i * i * (data.center.y - el.panZero.y) / scaler
+          )
+        );
+      }
+    });
+  }
+};
+
+const parallaxer = document.querySelector(".js-parallaxer");
+
+const qstr = new Map(location.search.slice(1).split('&').map(kv => kv.split('=')));
+//~ let m = 'https://iiif.vam.ac.uk/demos/peepshow/manifest.json';
+//~ let m = 'https://iiif.vam.ac.uk/collections/MSL:1876:Forster:141:I/manifest.json';
+let m = 'http://localhost/Javascriptings/img/parallax/manifest.json';
+
+if (!qstr.has('manifest')) {
+  document.location.search = 'manifest=' + m;
+} else {
+  m = qstr.get('manifest');
+}
+manifesto.loadManifest(m).then((manifest) => {
+  const mf = manifesto.create(manifest);
+  const cvs = mf.getSequences()[0].getCanvases();
+  let img = null;
+  viewer.init(parallaxer);
+  let i=0;//~ limit for testing
+  Array.from(cvs, (cv) => {
+    if(++i>3) return;//~ limit for testing
+    /* P3 manifest, else P2 */
+    if (cv.getImages().length) {
+      img = cv.getImages()[0].getResource().getServices()[0].id;
+    } else if (cv.getContent().length) {
+      img = cv.getContent()[0].getBody()[0].getServices()[0].id;
+    }
+    if (img) {
+      parallaxer.osd.addTiledImage({
+        tileSource: `${img}/info.json`
+      });
+    }
+  });
+});
+</script>
+</body>
+</html>
