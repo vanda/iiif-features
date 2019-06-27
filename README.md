@@ -9,7 +9,7 @@ Useful for the alignment of overlayed images, served by the IIIF Image API, and 
 Try it out by pasting in some full IIIF Image URIs, such as [framemark.vam.ac.uk/collections/2018KU6176/full/full/0/default.jpg](https://framemark.vam.ac.uk/collections/2018KU6176/full/full/0/default.jpg)
 
 
-## [Stop-motion viewer](https://vanda.github.io/iiif-features/frameAnimator.html)
+## [Stop-motion viewer](https://vanda.github.io/iiif-features/flickBook.html)
 A prototype viewer for interacting with stop-motion image sets, such as Edweard Muybridge produced in his work Animal Locomotion.
 
 **Drag** the image!
