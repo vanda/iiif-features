@@ -17,8 +17,8 @@
 
 <div class="parallaxer js-parallaxer"></div>
 
-<script src="img/manifesto.bundle.js"></script>
-<script src="img/openseadragon.min.js"></script>
+<script src="https://unpkg.com/manifesto.js@3.0.9/dist/client/manifesto.bundle.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/openseadragon/2.4.0/openseadragon.min.js"></script>
 <script type="text/javascript">
 const viewer = {
   id: 1,
@@ -26,7 +26,7 @@ const viewer = {
     el.id = el.id || 'viewer' + viewer.id++;
     el.osd = OpenSeadragon({
       id: el.id,
-      prefixUrl: "https://openseadragon.github.io/openseadragon/images/"
+      showNavigationControl: false
     });
     el.xlate = null;
     el.osd.world.addHandler('add-item', (data) => {
