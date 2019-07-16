@@ -132,19 +132,33 @@ if (!qstr.has('manifest')) {
 } else {
   m = qstr.get('manifest');
 }
+
 manifesto.loadManifest(m).then((manifest) => {
   flicker.innerHTML = '';
   const mf = manifesto.create(manifest);
-  const cvs = mf.getSequences()[0].getCanvases();
-  Array.from(cvs, (cv) => {
-    const im = flicker.appendChild(document.createElement('img'));
-    if (cv.getImages().length) {
-      im.src = cv.getImages()[0].getResource().id;
-    } else if (cv.getContent().length) {
-      im.src = cv.getContent()[0].getBody()[0].id;
-    }
-    painter.init(flicker, {'loop':1, 'fade':0});
-  });
+  let cvs = null;
+
+  if (!mf.context.includes('http://iiif.io/api/presentation/3/context.json')) {
+    alert("Please provide a P3 manifest with the region of each frame as Fragment Selectors.");
+  } else {
+    const stack = mf.getAllRanges().find((range) => {
+      return range.__jsonld.behavior.includes('superimpose-regions');
+    });
+    cvs = Array.from(stack.__jsonld.items, (item) => {
+      const cvObj = mf.getSequences()[0].getCanvasById(item.source);
+      cvObj.region = item.selector.value;
+      return cvObj;
+    });
+
+    Array.from(cvs, (cv) => {
+      const imgEl = flicker.appendChild(document.createElement('img'));
+      const region = cv.region.slice(5);
+      let imgSrc = cv.getContent()[0].getBody()[0].id;
+      imgSrc = imgSrc.replace('full/full', `${region}/full`);
+      imgEl.src = `${imgSrc}.jpg`;
+      painter.init(flicker, {'loop':1, 'fade':0});
+    });
+  }
 });
 
 

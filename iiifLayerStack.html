@@ -133,6 +133,7 @@ if (!qstr.has('manifest')) {
 } else {
   m = qstr.get('manifest');
 }
+
 manifesto.loadManifest(m).then((manifest) => {
   const viewer = iiifLayerStack.init(document.querySelector('.js-iiifLayerStack'));
   const mf = manifesto.create(manifest);
