@@ -69,6 +69,22 @@ const iiifLayerStack = {
     el.labels.className = 'iiifLayerStack-labels';
     dash.appendChild(el.labels);
 
+    /* wip - attempt to add edit mode */
+    //~ if (edit) {
+      //~ el.osd.addHandler('canvas-press', (data) => {
+        //~ const layer = el.osd.world.getItemAt(0);
+        //~ const dragStart = data.position;
+        //~ const layerStart = layer.getBounds();
+        //~ data.tracker.dragHandler = (e) => {
+          //~ window.requestAnimationFrame(function(){
+            //~ layer.setPosition(layer.imageToViewportCoordinates(
+              //~ layerStart.x + e.position.x - dragStart.x, layerStart.y + e.position.y - dragStart.y
+            //~ ), true);
+          //~ });
+        //~ };
+      //~ });
+    //~ }
+
     return el;
   },
   addItem: (el, osdArgs, label) => {
