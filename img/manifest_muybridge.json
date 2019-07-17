@@ -91,576 +91,6 @@
           ]
         }
       ]
-    },
-    {
-      "id": "https://vanda.github.io/iiif-features/img/compariscope_manifest.json/canvas/2",
-      "type": "AnnotationPage",
-      "label": {
-        "en": [
-          "Camel trotting (Photograph), Muybridge"
-        ]
-      },
-      "items": [
-        {
-          "@id": "https://vanda.github.io/iiif-features/img/compariscope_manifest.json/list/1",
-          "@type": "Canvas",
-          "label": "Empty canvas",
-          "height": 2334,
-          "width": 3000,
-          "items": [
-            {
-              "@id": "http://1e283e74-783f-4f3c-a203-31c6dd166b6f",
-              "@type": "Annotation",
-              "motivation": "painting",
-              "body": {
-                "@id": "https://framemark.vam.ac.uk/collections/2018KU6176/full/full/0/default",
-                "@type": "Image",
-                "format": "image/jpeg",
-                "service": {
-                  "@id": "https://framemark.vam.ac.uk/collections/2018KU6176",
-                  "type": "ImageService2",
-                  "profile": "level1"
-                },
-                "height": 2334,
-                "width": 3000
-              },
-              "target": "https://vanda.github.io/iiif-features/img/compariscope_manifest.json/canvas/2"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "id": "https://vanda.github.io/iiif-features/img/compariscope_manifest.json/canvas/3",
-      "type": "AnnotationPage",
-      "label": {
-        "en": [
-          "Camel trotting (Photograph), Muybridge"
-        ]
-      },
-      "items": [
-        {
-          "@id": "https://vanda.github.io/iiif-features/img/compariscope_manifest.json/list/1",
-          "@type": "Canvas",
-          "label": "Empty canvas",
-          "height": 2334,
-          "width": 3000,
-          "items": [
-            {
-              "@id": "http://1e283e74-783f-4f3c-a203-31c6dd166b6f",
-              "@type": "Annotation",
-              "motivation": "painting",
-              "body": {
-                "@id": "https://framemark.vam.ac.uk/collections/2018KU6176/full/full/0/default",
-                "@type": "Image",
-                "format": "image/jpeg",
-                "service": {
-                  "@id": "https://framemark.vam.ac.uk/collections/2018KU6176",
-                  "type": "ImageService2",
-                  "profile": "level1"
-                },
-                "height": 2334,
-                "width": 3000
-              },
-              "target": "http://1eb9b836-de94-4449-97cf-365089c81028"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "id": "https://vanda.github.io/iiif-features/img/compariscope_manifest.json/canvas/4",
-      "type": "AnnotationPage",
-      "label": {
-        "en": [
-          "Camel trotting (Photograph), Muybridge"
-        ]
-      },
-      "items": [
-        {
-          "@id": "https://vanda.github.io/iiif-features/img/compariscope_manifest.json/list/1",
-          "@type": "Canvas",
-          "label": "Empty canvas",
-          "height": 2334,
-          "width": 3000,
-          "items": [
-            {
-              "@id": "http://1e283e74-783f-4f3c-a203-31c6dd166b6f",
-              "@type": "Annotation",
-              "motivation": "painting",
-              "body": {
-                "@id": "https://framemark.vam.ac.uk/collections/2018KU6176/full/full/0/default",
-                "@type": "Image",
-                "format": "image/jpeg",
-                "service": {
-                  "@id": "https://framemark.vam.ac.uk/collections/2018KU6176",
-                  "type": "ImageService2",
-                  "profile": "level1"
-                },
-                "height": 2334,
-                "width": 3000
-              },
-              "target": "http://1eb9b836-de94-4449-97cf-365089c81028"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "id": "https://vanda.github.io/iiif-features/img/compariscope_manifest.json/canvas/5",
-      "type": "AnnotationPage",
-      "label": {
-        "en": [
-          "Camel trotting (Photograph), Muybridge"
-        ]
-      },
-      "items": [
-        {
-          "@id": "https://vanda.github.io/iiif-features/img/compariscope_manifest.json/list/1",
-          "@type": "Canvas",
-          "label": "Empty canvas",
-          "height": 2334,
-          "width": 3000,
-          "items": [
-            {
-              "@id": "http://1e283e74-783f-4f3c-a203-31c6dd166b6f",
-              "@type": "Annotation",
-              "motivation": "painting",
-              "body": {
-                "@id": "https://framemark.vam.ac.uk/collections/2018KU6176/full/full/0/default",
-                "@type": "Image",
-                "format": "image/jpeg",
-                "service": {
-                  "@id": "https://framemark.vam.ac.uk/collections/2018KU6176",
-                  "type": "ImageService2",
-                  "profile": "level1"
-                },
-                "height": 2334,
-                "width": 3000
-              },
-              "target": "http://1eb9b836-de94-4449-97cf-365089c81028"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "id": "https://vanda.github.io/iiif-features/img/compariscope_manifest.json/canvas/6",
-      "type": "AnnotationPage",
-      "label": {
-        "en": [
-          "Camel trotting (Photograph), Muybridge"
-        ]
-      },
-      "items": [
-        {
-          "@id": "https://vanda.github.io/iiif-features/img/compariscope_manifest.json/list/1",
-          "@type": "Canvas",
-          "label": "Empty canvas",
-          "height": 2334,
-          "width": 3000,
-          "items": [
-            {
-              "@id": "http://1e283e74-783f-4f3c-a203-31c6dd166b6f",
-              "@type": "Annotation",
-              "motivation": "painting",
-              "body": {
-                "@id": "https://framemark.vam.ac.uk/collections/2018KU6176/full/full/0/default",
-                "@type": "Image",
-                "format": "image/jpeg",
-                "service": {
-                  "@id": "https://framemark.vam.ac.uk/collections/2018KU6176",
-                  "type": "ImageService2",
-                  "profile": "level1"
-                },
-                "height": 2334,
-                "width": 3000
-              },
-              "target": "http://1eb9b836-de94-4449-97cf-365089c81028"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "id": "https://vanda.github.io/iiif-features/img/compariscope_manifest.json/canvas/7",
-      "type": "AnnotationPage",
-      "label": {
-        "en": [
-          "Camel trotting (Photograph), Muybridge"
-        ]
-      },
-      "items": [
-        {
-          "@id": "https://vanda.github.io/iiif-features/img/compariscope_manifest.json/list/1",
-          "@type": "Canvas",
-          "label": "Empty canvas",
-          "height": 2334,
-          "width": 3000,
-          "items": [
-            {
-              "@id": "http://1e283e74-783f-4f3c-a203-31c6dd166b6f",
-              "@type": "Annotation",
-              "motivation": "painting",
-              "body": {
-                "@id": "https://framemark.vam.ac.uk/collections/2018KU6176/full/full/0/default",
-                "@type": "Image",
-                "format": "image/jpeg",
-                "service": {
-                  "@id": "https://framemark.vam.ac.uk/collections/2018KU6176",
-                  "type": "ImageService2",
-                  "profile": "level1"
-                },
-                "height": 2334,
-                "width": 3000
-              },
-              "target": "http://1eb9b836-de94-4449-97cf-365089c81028"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "id": "https://vanda.github.io/iiif-features/img/compariscope_manifest.json/canvas/8",
-      "type": "AnnotationPage",
-      "label": {
-        "en": [
-          "Camel trotting (Photograph), Muybridge"
-        ]
-      },
-      "items": [
-        {
-          "@id": "https://vanda.github.io/iiif-features/img/compariscope_manifest.json/list/1",
-          "@type": "Canvas",
-          "label": "Empty canvas",
-          "height": 2334,
-          "width": 3000,
-          "items": [
-            {
-              "@id": "http://1e283e74-783f-4f3c-a203-31c6dd166b6f",
-              "@type": "Annotation",
-              "motivation": "painting",
-              "body": {
-                "@id": "https://framemark.vam.ac.uk/collections/2018KU6176/full/full/0/default",
-                "@type": "Image",
-                "format": "image/jpeg",
-                "service": {
-                  "@id": "https://framemark.vam.ac.uk/collections/2018KU6176",
-                  "type": "ImageService2",
-                  "profile": "level1"
-                },
-                "height": 2334,
-                "width": 3000
-              },
-              "target": "http://1eb9b836-de94-4449-97cf-365089c81028"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "id": "https://vanda.github.io/iiif-features/img/compariscope_manifest.json/canvas/9",
-      "type": "AnnotationPage",
-      "label": {
-        "en": [
-          "Camel trotting (Photograph), Muybridge"
-        ]
-      },
-      "items": [
-        {
-          "@id": "https://vanda.github.io/iiif-features/img/compariscope_manifest.json/list/1",
-          "@type": "Canvas",
-          "label": "Empty canvas",
-          "height": 2334,
-          "width": 3000,
-          "items": [
-            {
-              "@id": "http://1e283e74-783f-4f3c-a203-31c6dd166b6f",
-              "@type": "Annotation",
-              "motivation": "painting",
-              "body": {
-                "@id": "https://framemark.vam.ac.uk/collections/2018KU6176/full/full/0/default",
-                "@type": "Image",
-                "format": "image/jpeg",
-                "service": {
-                  "@id": "https://framemark.vam.ac.uk/collections/2018KU6176",
-                  "type": "ImageService2",
-                  "profile": "level1"
-                },
-                "height": 2334,
-                "width": 3000
-              },
-              "target": "http://1eb9b836-de94-4449-97cf-365089c81028"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "id": "https://vanda.github.io/iiif-features/img/compariscope_manifest.json/canvas/10",
-      "type": "AnnotationPage",
-      "label": {
-        "en": [
-          "Camel trotting (Photograph), Muybridge"
-        ]
-      },
-      "items": [
-        {
-          "@id": "https://vanda.github.io/iiif-features/img/compariscope_manifest.json/list/1",
-          "@type": "Canvas",
-          "label": "Empty canvas",
-          "height": 2334,
-          "width": 3000,
-          "items": [
-            {
-              "@id": "http://1e283e74-783f-4f3c-a203-31c6dd166b6f",
-              "@type": "Annotation",
-              "motivation": "painting",
-              "body": {
-                "@id": "https://framemark.vam.ac.uk/collections/2018KU6176/full/full/0/default",
-                "@type": "Image",
-                "format": "image/jpeg",
-                "service": {
-                  "@id": "https://framemark.vam.ac.uk/collections/2018KU6176",
-                  "type": "ImageService2",
-                  "profile": "level1"
-                },
-                "height": 2334,
-                "width": 3000
-              },
-              "target": "http://1eb9b836-de94-4449-97cf-365089c81028"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "id": "https://vanda.github.io/iiif-features/img/compariscope_manifest.json/canvas/11",
-      "type": "AnnotationPage",
-      "label": {
-        "en": [
-          "Camel trotting (Photograph), Muybridge"
-        ]
-      },
-      "items": [
-        {
-          "@id": "https://vanda.github.io/iiif-features/img/compariscope_manifest.json/list/1",
-          "@type": "Canvas",
-          "label": "Empty canvas",
-          "height": 2334,
-          "width": 3000,
-          "items": [
-            {
-              "@id": "http://1e283e74-783f-4f3c-a203-31c6dd166b6f",
-              "@type": "Annotation",
-              "motivation": "painting",
-              "body": {
-                "@id": "https://framemark.vam.ac.uk/collections/2018KU6176/full/full/0/default",
-                "@type": "Image",
-                "format": "image/jpeg",
-                "service": {
-                  "@id": "https://framemark.vam.ac.uk/collections/2018KU6176",
-                  "type": "ImageService2",
-                  "profile": "level1"
-                },
-                "height": 2334,
-                "width": 3000
-              },
-              "target": "http://1eb9b836-de94-4449-97cf-365089c81028"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "id": "https://vanda.github.io/iiif-features/img/compariscope_manifest.json/canvas/12",
-      "type": "AnnotationPage",
-      "label": {
-        "en": [
-          "Camel trotting (Photograph), Muybridge"
-        ]
-      },
-      "items": [
-        {
-          "@id": "https://vanda.github.io/iiif-features/img/compariscope_manifest.json/list/1",
-          "@type": "Canvas",
-          "label": "Empty canvas",
-          "height": 2334,
-          "width": 3000,
-          "items": [
-            {
-              "@id": "http://1e283e74-783f-4f3c-a203-31c6dd166b6f",
-              "@type": "Annotation",
-              "motivation": "painting",
-              "body": {
-                "@id": "https://framemark.vam.ac.uk/collections/2018KU6176/full/full/0/default",
-                "@type": "Image",
-                "format": "image/jpeg",
-                "service": {
-                  "@id": "https://framemark.vam.ac.uk/collections/2018KU6176",
-                  "type": "ImageService2",
-                  "profile": "level1"
-                },
-                "height": 2334,
-                "width": 3000
-              },
-              "target": "http://1eb9b836-de94-4449-97cf-365089c81028"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "id": "https://vanda.github.io/iiif-features/img/compariscope_manifest.json/canvas/13",
-      "type": "AnnotationPage",
-      "label": {
-        "en": [
-          "Camel trotting (Photograph), Muybridge"
-        ]
-      },
-      "items": [
-        {
-          "@id": "https://vanda.github.io/iiif-features/img/compariscope_manifest.json/list/1",
-          "@type": "Canvas",
-          "label": "Empty canvas",
-          "height": 2334,
-          "width": 3000,
-          "items": [
-            {
-              "@id": "http://1e283e74-783f-4f3c-a203-31c6dd166b6f",
-              "@type": "Annotation",
-              "motivation": "painting",
-              "body": {
-                "@id": "https://framemark.vam.ac.uk/collections/2018KU6176/full/full/0/default",
-                "@type": "Image",
-                "format": "image/jpeg",
-                "service": {
-                  "@id": "https://framemark.vam.ac.uk/collections/2018KU6176",
-                  "type": "ImageService2",
-                  "profile": "level1"
-                },
-                "height": 2334,
-                "width": 3000
-              },
-              "target": "http://1eb9b836-de94-4449-97cf-365089c81028"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "id": "https://vanda.github.io/iiif-features/img/compariscope_manifest.json/canvas/14",
-      "type": "AnnotationPage",
-      "label": {
-        "en": [
-          "Camel trotting (Photograph), Muybridge"
-        ]
-      },
-      "items": [
-        {
-          "@id": "https://vanda.github.io/iiif-features/img/compariscope_manifest.json/list/1",
-          "@type": "Canvas",
-          "label": "Empty canvas",
-          "height": 2334,
-          "width": 3000,
-          "items": [
-            {
-              "@id": "http://1e283e74-783f-4f3c-a203-31c6dd166b6f",
-              "@type": "Annotation",
-              "motivation": "painting",
-              "body": {
-                "@id": "https://framemark.vam.ac.uk/collections/2018KU6176/full/full/0/default",
-                "@type": "Image",
-                "format": "image/jpeg",
-                "service": {
-                  "@id": "https://framemark.vam.ac.uk/collections/2018KU6176",
-                  "type": "ImageService2",
-                  "profile": "level1"
-                },
-                "height": 2334,
-                "width": 3000
-              },
-              "target": "http://1eb9b836-de94-4449-97cf-365089c81028"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "id": "https://vanda.github.io/iiif-features/img/compariscope_manifest.json/canvas/15",
-      "type": "AnnotationPage",
-      "label": {
-        "en": [
-          "Camel trotting (Photograph), Muybridge"
-        ]
-      },
-      "items": [
-        {
-          "@id": "https://vanda.github.io/iiif-features/img/compariscope_manifest.json/list/1",
-          "@type": "Canvas",
-          "label": "Empty canvas",
-          "height": 2334,
-          "width": 3000,
-          "items": [
-            {
-              "@id": "http://1e283e74-783f-4f3c-a203-31c6dd166b6f",
-              "@type": "Annotation",
-              "motivation": "painting",
-              "body": {
-                "@id": "https://framemark.vam.ac.uk/collections/2018KU6176/full/full/0/default",
-                "@type": "Image",
-                "format": "image/jpeg",
-                "service": {
-                  "@id": "https://framemark.vam.ac.uk/collections/2018KU6176",
-                  "type": "ImageService2",
-                  "profile": "level1"
-                },
-                "height": 2334,
-                "width": 3000
-              },
-              "target": "http://1eb9b836-de94-4449-97cf-365089c81028"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "id": "https://vanda.github.io/iiif-features/img/compariscope_manifest.json/canvas/16",
-      "type": "AnnotationPage",
-      "label": {
-        "en": [
-          "Camel trotting (Photograph), Muybridge"
-        ]
-      },
-      "items": [
-        {
-          "@id": "https://vanda.github.io/iiif-features/img/compariscope_manifest.json/list/1",
-          "@type": "Canvas",
-          "label": "Empty canvas",
-          "height": 2334,
-          "width": 3000,
-          "items": [
-            {
-              "@id": "http://1e283e74-783f-4f3c-a203-31c6dd166b6f",
-              "@type": "Annotation",
-              "motivation": "painting",
-              "body": {
-                "@id": "https://framemark.vam.ac.uk/collections/2018KU6176/full/full/0/default",
-                "@type": "Image",
-                "format": "image/jpeg",
-                "service": {
-                  "@id": "https://framemark.vam.ac.uk/collections/2018KU6176",
-                  "type": "ImageService2",
-                  "profile": "level1"
-                },
-                "height": 2334,
-                "width": 3000
-              },
-              "target": "http://1eb9b836-de94-4449-97cf-365089c81028"
-            }
-          ]
-        }
-      ]
     }
 	],
   "structures": [
@@ -682,7 +112,7 @@
         },
         {
           "type": "SpecificResource",
-          "source": "https://vanda.github.io/iiif-features/img/compariscope_manifest.json/canvas/2",
+          "source": "https://vanda.github.io/iiif-features/img/compariscope_manifest.json/canvas/1",
           "selector": {
             "type": "FragmentSelector",
             "value": "xywh=pct:48.881,71.303,20.553,20.552"
@@ -690,7 +120,7 @@
         },
         {
           "type": "SpecificResource",
-          "source": "https://vanda.github.io/iiif-features/img/compariscope_manifest.json/canvas/3",
+          "source": "https://vanda.github.io/iiif-features/img/compariscope_manifest.json/canvas/1",
           "selector": {
             "type": "FragmentSelector",
             "value": "xywh=pct:28.749,71.221,20.685,20.689"
@@ -698,7 +128,7 @@
         },
         {
           "type": "SpecificResource",
-          "source": "https://vanda.github.io/iiif-features/img/compariscope_manifest.json/canvas/4",
+          "source": "https://vanda.github.io/iiif-features/img/compariscope_manifest.json/canvas/1",
           "selector": {
             "type": "FragmentSelector",
             "value": "xywh=pct:8.835,71.046,20.863,20.861"
@@ -706,7 +136,7 @@
         },
         {
           "type": "SpecificResource",
-          "source": "https://vanda.github.io/iiif-features/img/compariscope_manifest.json/canvas/5",
+          "source": "https://vanda.github.io/iiif-features/img/compariscope_manifest.json/canvas/1",
           "selector": {
             "type": "FragmentSelector",
             "value": "xywh=pct:69.178,49.946,20.703,20.705"
@@ -714,7 +144,7 @@
         },
         {
           "type": "SpecificResource",
-          "source": "https://vanda.github.io/iiif-features/img/compariscope_manifest.json/canvas/6",
+          "source": "https://vanda.github.io/iiif-features/img/compariscope_manifest.json/canvas/1",
           "selector": {
             "type": "FragmentSelector",
             "value": "xywh=pct:49.587,50.046,20.583,20.579"
@@ -722,7 +152,7 @@
         },
         {
           "type": "SpecificResource",
-          "source": "https://vanda.github.io/iiif-features/img/compariscope_manifest.json/canvas/7",
+          "source": "https://vanda.github.io/iiif-features/img/compariscope_manifest.json/canvas/1",
           "selector": {
             "type": "FragmentSelector",
             "value": "xywh=pct:29.59,49.959,20.789,20.789"
@@ -730,7 +160,7 @@
         },
         {
           "type": "SpecificResource",
-          "source": "https://vanda.github.io/iiif-features/img/compariscope_manifest.json/canvas/8",
+          "source": "https://vanda.github.io/iiif-features/img/compariscope_manifest.json/canvas/1",
           "selector": {
             "type": "FragmentSelector",
             "value": "xywh=pct:9.554,49.912,20.894,20.895"
@@ -738,7 +168,7 @@
         },
         {
           "type": "SpecificResource",
-          "source": "https://vanda.github.io/iiif-features/img/compariscope_manifest.json/canvas/9",
+          "source": "https://vanda.github.io/iiif-features/img/compariscope_manifest.json/canvas/1",
           "selector": {
             "type": "FragmentSelector",
             "value": "xywh=pct:69.577,28.955,20.789,20.789"
@@ -746,7 +176,7 @@
         },
         {
           "type": "SpecificResource",
-          "source": "https://vanda.github.io/iiif-features/img/compariscope_manifest.json/canvas/10",
+          "source": "https://vanda.github.io/iiif-features/img/compariscope_manifest.json/canvas/1",
           "selector": {
             "type": "FragmentSelector",
             "value": "xywh=pct:49.502,28.937,20.832,20.833"
@@ -754,7 +184,7 @@
         },
         {
           "type": "SpecificResource",
-          "source": "https://vanda.github.io/iiif-features/img/compariscope_manifest.json/canvas/11",
+          "source": "https://vanda.github.io/iiif-features/img/compariscope_manifest.json/canvas/1",
           "selector": {
             "type": "FragmentSelector",
             "value": "xywh=pct:29.414,29.013,20.694,20.694"
@@ -762,7 +192,7 @@
         },
         {
           "type": "SpecificResource",
-          "source": "https://vanda.github.io/iiif-features/img/compariscope_manifest.json/canvas/12",
+          "source": "https://vanda.github.io/iiif-features/img/compariscope_manifest.json/canvas/1",
           "selector": {
             "type": "FragmentSelector",
             "value": "xywh=pct:10.027,28.911,20.832,20.828"
@@ -770,7 +200,7 @@
         },
         {
           "type": "SpecificResource",
-          "source": "https://vanda.github.io/iiif-features/img/compariscope_manifest.json/canvas/13",
+          "source": "https://vanda.github.io/iiif-features/img/compariscope_manifest.json/canvas/1",
           "selector": {
             "type": "FragmentSelector",
             "value": "xywh=pct:70.07,7.809,20.955,20.952"
@@ -778,7 +208,7 @@
         },
         {
           "type": "SpecificResource",
-          "source": "https://vanda.github.io/iiif-features/img/compariscope_manifest.json/canvas/14",
+          "source": "https://vanda.github.io/iiif-features/img/compariscope_manifest.json/canvas/1",
           "selector": {
             "type": "FragmentSelector",
             "value": "xywh=pct:50.036,8.004,20.651,20.65"
@@ -786,7 +216,7 @@
         },
         {
           "type": "SpecificResource",
-          "source": "https://vanda.github.io/iiif-features/img/compariscope_manifest.json/canvas/15",
+          "source": "https://vanda.github.io/iiif-features/img/compariscope_manifest.json/canvas/1",
           "selector": {
             "type": "FragmentSelector",
             "value": "xywh=pct:30.212,8.124,20.364,20.363"
@@ -794,7 +224,7 @@
         },
         {
           "type": "SpecificResource",
-          "source": "https://vanda.github.io/iiif-features/img/compariscope_manifest.json/canvas/16",
+          "source": "https://vanda.github.io/iiif-features/img/compariscope_manifest.json/canvas/1",
           "selector": {
             "type": "FragmentSelector",
             "value": "xywh=pct:10.366,8.156,20.347,20.347"

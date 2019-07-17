@@ -144,30 +144,33 @@ manifesto.loadManifest(m).then((manifest) => {
   /* P2 manifest, else P3 */
   if (!mf.context.includes('http://iiif.io/api/presentation/3/context.json')) {
     console.log("Please provide alignment regions as Fragment Selectors in a P3 manifest.");
-    cvs = mf.getSequences()[0].getCanvases();
+    cvs = Array.from(mf.getSequences()[0].getCanvases(), (item) => {
+      return { cv: item }
+    });
   } else {
     const stack = mf.getAllRanges().find((range) => {
       return range.__jsonld.behavior.includes('superimpose-regions');
     });
     cvs = Array.from(stack.__jsonld.items, (item) => {
-      const cvObj = mf.getSequences()[0].getCanvasById(item.source);
-      cvObj.region = item.selector.value;
-      return cvObj;
+      return {
+        cv: mf.getSequences()[0].getCanvasById(item.source),
+        region: item.selector.value
+      }
     });
   }
 
-  Array.from(cvs, (cv) => {
+  Array.from(cvs, (myCv) => {
     const osdArgs = {};
     let img = null;
     let region = null;
     let viewWidth = null;
 
     /* P2 manifest, else P3 */
-    if (cv.getImages().length) {
-      img = cv.getImages()[0].getResource().getServices()[0].id;
+    if (!mf.context.includes('http://iiif.io/api/presentation/3/context.json')) {
+      img = myCv.cv.getImages()[0].getResource().getServices()[0].id;
     } else {
-      img = cv.getContent()[0].getBody()[0].getServices()[0].id;
-      region = cv.region.slice(9).split(',');
+      img = myCv.cv.getContent()[0].getBody()[0].getServices()[0].id;
+      region = myCv.region.slice(9).split(',');
     }
 
     osdArgs.tileSource = `${img}/info.json`;
@@ -198,7 +201,7 @@ manifesto.loadManifest(m).then((manifest) => {
         }
       };
     }
-    iiifLayerStack.addItem(viewer, osdArgs, cv.getLabel()[0].value);
+    iiifLayerStack.addItem(viewer, osdArgs, myCv.cv.getLabel()[0].value);
   });
 });
 </script>

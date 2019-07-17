@@ -143,15 +143,10 @@ manifesto.loadManifest(m).then((manifest) => {
     const stack = mf.getAllRanges().find((range) => {
       return range.__jsonld.behavior.includes('superimpose-regions');
     });
-    const cvs = Array.from(stack.__jsonld.items, (item) => {
-      const cvObj = mf.getSequences()[0].getCanvasById(item.source);
-      cvObj.region = item.selector.value;
-      return cvObj;
-    });
-
-    Array.from(cvs, (cv) => {
+    Array.from(stack.__jsonld.items, (item) => {
+      const cv = mf.getSequences()[0].getCanvasById(item.source);
+      const region = item.selector.value.slice(5);
       const imgEl = flicker.appendChild(document.createElement('img'));
-      const region = cv.region.slice(5);
       let imgSrc = `${cv.getContent()[0].getBody()[0].id}.jpg`;
       let  imgSrcset = '';
       for (let size of [320, 640, 960, 1200, 1920]){
