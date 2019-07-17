@@ -125,7 +125,7 @@ addHandler(window,'resize',function(){
 });
 
 const qstr = new Map(location.search.slice(1).split('&').map(kv => kv.split('=')));
-let m = 'https://iiif.vam.ac.uk/demos/muybridge/manifest.json';
+let m = 'img/manifest_muybridge.json';
 
 if (!qstr.has('manifest')) {
   document.location.search = 'manifest=' + m;
@@ -136,7 +136,6 @@ if (!qstr.has('manifest')) {
 manifesto.loadManifest(m).then((manifest) => {
   flicker.innerHTML = '';
   const mf = manifesto.create(manifest);
-  let cvs = null;
 
   if (!mf.context.includes('http://iiif.io/api/presentation/3/context.json')) {
     alert("Please provide a P3 manifest with the region of each frame as Fragment Selectors.");
@@ -144,7 +143,7 @@ manifesto.loadManifest(m).then((manifest) => {
     const stack = mf.getAllRanges().find((range) => {
       return range.__jsonld.behavior.includes('superimpose-regions');
     });
-    cvs = Array.from(stack.__jsonld.items, (item) => {
+    const cvs = Array.from(stack.__jsonld.items, (item) => {
       const cvObj = mf.getSequences()[0].getCanvasById(item.source);
       cvObj.region = item.selector.value;
       return cvObj;
