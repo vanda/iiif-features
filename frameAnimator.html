@@ -152,9 +152,13 @@ manifesto.loadManifest(m).then((manifest) => {
     Array.from(cvs, (cv) => {
       const imgEl = flicker.appendChild(document.createElement('img'));
       const region = cv.region.slice(5);
-      let imgSrc = cv.getContent()[0].getBody()[0].id;
-      imgSrc = imgSrc.replace('full/full', `${region}/full`);
-      imgEl.src = `${imgSrc}.jpg`;
+      let imgSrc = `${cv.getContent()[0].getBody()[0].id}.jpg`;
+      let  imgSrcset = '';
+      for (let size of [320, 640, 960, 1200, 1920]){
+        imgSrcset += imgSrc.replace('full/full', `${region}/${size},`) + ` ${size}w, `;
+      }
+      imgEl.srcset = imgSrcset;
+      imgEl.src = imgSrc.replace('full/full', `${region}/960,`);
       painter.init(flicker, {'loop':1, 'fade':0});
     });
   }
