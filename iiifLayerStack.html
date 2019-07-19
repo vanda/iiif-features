@@ -9,8 +9,9 @@
   <title>iiifLayerStack</title>
   <style type="text/css">
     html, body { height: 100%; margin: 0; }
-    body { background: #000; font: 14px/1 helvetica,arial,freesans,sans-serif; }
-    .iiifLayerStack { height: 80%; width: 100%; }
+    body { background: #000; font: 14px/1 helvetica,arial,freesans,sans-serif; padding: 20px; }
+    .iiifLayerStack { box-shadow: 0 0 3px #fff; height: 100%; width: 100%; }
+    .iiifLayerStack-osd { height: 80%; width: 100%; }
     .iiifLayerStack-dash { background: #fff; font-size: 14px; width: calc(100% - 20px); margin: 20px auto 40px; max-width: 800px; padding: 10px; }
     .iiifLayerStack-fader, .iiifLayerStack-key { width: 100%; }
     .iiifLayerStack-fader { -webkit-appearance: none; background: #000; border: solid #fff; border-width: 10px 0; height: 4px; position: relative; z-index: 1; }
@@ -33,20 +34,24 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/openseadragon/2.4.0/openseadragon.min.js"></script>
 <script type="text/javascript">
 const iiifLayerStack = {
-  id: 1,
+  id: 0,
   init: (el) => {
-    el.id = el.id || 'iiifLayerStack' + iiifLayerStack.id++;
+    iiifLayerStack.id += 1;
+    const osd = document.createElement('div');
+    osd.id = `iiifLayerStack${iiifLayerStack.id}`;
+    osd.className = 'iiifLayerStack-osd';
+    el.appendChild(osd);
 
     el.osd = OpenSeadragon({
-      id: el.id,
+      id: `iiifLayerStack${iiifLayerStack.id}`,
       showNavigationControl: false
     });
-    
-    el.height = 0;
+
+    el.stackHeight = 0;
 
     const dash = document.createElement('div');
     dash.className = 'iiifLayerStack-dash';
-    el.parentNode.appendChild(dash);
+    el.appendChild(dash);
 
     el.fader = document.createElement('input');
     el.fader.className = 'iiifLayerStack-fader';
@@ -89,15 +94,15 @@ const iiifLayerStack = {
   },
   addItem: (el, osdArgs, label) => {
     el.osd.addTiledImage(osdArgs);
-    el.height += 1;
-    el.fader.max = el.height;
+    el.stackHeight += 1;
+    el.fader.max = el.stackHeight;
     el.fader.value = el.fader.max;
     iiifLayerStack.key(el, label);
   },
   fade: (el, x) => {
     const bgLayer = Math.floor(x);
     const opacity = x - bgLayer;
-    for (let i = el.height; i > 0; i--) {
+    for (let i = el.stackHeight; i > 0; i--) {
       if (i > bgLayer + 1 ) {
         el.osd.world.getItemAt(i-1).setOpacity(0);
       } else if (i === bgLayer + 1) {
@@ -109,14 +114,14 @@ const iiifLayerStack = {
   },
   key: (el, label) => {
     el.key.innerHTML = '';
-    for (let i = 0; i < el.height; ++i) {
+    for (let i = 0; i < el.stackHeight; ++i) {
       el.key.innerHTML += `
-        <div class="iiifLayerStack-keyline" style="width:${i*100/(el.height-1)}%">${i+1}</div>
+        <div class="iiifLayerStack-keyline" style="width:${i*100/(el.stackHeight-1)}%">${i+1}</div>
       `;
     }
     el.labels.innerHTML += `
       <div class="iiifLayerStack-label">
-        <div class="iiifLayerStack-labelkey">${el.height}</div>
+        <div class="iiifLayerStack-labelkey">${el.stackHeight}</div>
         <div class="iiifLayerStack-labeltext">${label}</div>
       </div>
     `;
