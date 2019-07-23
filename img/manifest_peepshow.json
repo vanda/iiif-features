@@ -31,12 +31,12 @@
 							"@type": "oa:Annotation",
 							"motivation": "sc:painting",
 							"resource": {
-								"@id": "http://localhost:8080/digilib/servlet/Scaler/IIIF/an_artists_studio_01/full/full/0/default",
+								"@id": "http://localhost:8080/digilib/servlet/Scaler/IIIF/an_artists_studio_06/full/full/0/default",
 								"@type": "dctypes:Image",
 								"format": "image/png",
 								"service": {
 									"@context": "http://iiif.io/api/image/2/context.json",
-									"@id": "http://localhost:8080/digilib/servlet/Scaler/IIIF/an_artists_studio_01",
+									"@id": "http://localhost:8080/digilib/servlet/Scaler/IIIF/an_artists_studio_06",
 									"profile": [
 										"http://iiif.io/api/image/2/level1.json",
 										{
@@ -82,12 +82,12 @@
 							"@type": "oa:Annotation",
 							"motivation": "sc:painting",
 							"resource": {
-								"@id": "http://localhost:8080/digilib/servlet/Scaler/IIIF/an_artists_studio_02/full/full/0/default",
+								"@id": "http://localhost:8080/digilib/servlet/Scaler/IIIF/an_artists_studio_05/full/full/0/default",
 								"@type": "dctypes:Image",
 								"format": "image/png",
 								"service": {
 									"@context": "http://iiif.io/api/image/2/context.json",
-									"@id": "http://localhost:8080/digilib/servlet/Scaler/IIIF/an_artists_studio_02",
+									"@id": "http://localhost:8080/digilib/servlet/Scaler/IIIF/an_artists_studio_05",
 									"profile": [
 										"http://iiif.io/api/image/2/level1.json",
 										{
@@ -133,12 +133,12 @@
 							"@type": "oa:Annotation",
 							"motivation": "sc:painting",
 							"resource": {
-								"@id": "http://localhost:8080/digilib/servlet/Scaler/IIIF/an_artists_studio_03/full/full/0/default",
+								"@id": "http://localhost:8080/digilib/servlet/Scaler/IIIF/an_artists_studio_04/full/full/0/default",
 								"@type": "dctypes:Image",
 								"format": "image/png",
 								"service": {
 									"@context": "http://iiif.io/api/image/2/context.json",
-									"@id": "http://localhost:8080/digilib/servlet/Scaler/IIIF/an_artists_studio_03",
+									"@id": "http://localhost:8080/digilib/servlet/Scaler/IIIF/an_artists_studio_04",
 									"profile": [
 										"http://iiif.io/api/image/2/level1.json",
 										{
@@ -184,12 +184,12 @@
 							"@type": "oa:Annotation",
 							"motivation": "sc:painting",
 							"resource": {
-								"@id": "http://localhost:8080/digilib/servlet/Scaler/IIIF/an_artists_studio_04/full/full/0/default",
+								"@id": "http://localhost:8080/digilib/servlet/Scaler/IIIF/an_artists_studio_03/full/full/0/default",
 								"@type": "dctypes:Image",
 								"format": "image/png",
 								"service": {
 									"@context": "http://iiif.io/api/image/2/context.json",
-									"@id": "http://localhost:8080/digilib/servlet/Scaler/IIIF/an_artists_studio_04",
+									"@id": "http://localhost:8080/digilib/servlet/Scaler/IIIF/an_artists_studio_03",
 									"profile": [
 										"http://iiif.io/api/image/2/level1.json",
 										{
@@ -235,12 +235,12 @@
 							"@type": "oa:Annotation",
 							"motivation": "sc:painting",
 							"resource": {
-								"@id": "http://localhost:8080/digilib/servlet/Scaler/IIIF/an_artists_studio_05/full/full/0/default",
+								"@id": "http://localhost:8080/digilib/servlet/Scaler/IIIF/an_artists_studio_02/full/full/0/default",
 								"@type": "dctypes:Image",
 								"format": "image/png",
 								"service": {
 									"@context": "http://iiif.io/api/image/2/context.json",
-									"@id": "http://localhost:8080/digilib/servlet/Scaler/IIIF/an_artists_studio_05",
+									"@id": "http://localhost:8080/digilib/servlet/Scaler/IIIF/an_artists_studio_02",
 									"profile": [
 										"http://iiif.io/api/image/2/level1.json",
 										{
@@ -286,12 +286,12 @@
 							"@type": "oa:Annotation",
 							"motivation": "sc:painting",
 							"resource": {
-								"@id": "http://localhost:8080/digilib/servlet/Scaler/IIIF/an_artists_studio_06/full/full/0/default",
+								"@id": "http://localhost:8080/digilib/servlet/Scaler/IIIF/an_artists_studio_01/full/full/0/default",
 								"@type": "dctypes:Image",
 								"format": "image/png",
 								"service": {
 									"@context": "http://iiif.io/api/image/2/context.json",
-									"@id": "http://localhost:8080/digilib/servlet/Scaler/IIIF/an_artists_studio_06",
+									"@id": "http://localhost:8080/digilib/servlet/Scaler/IIIF/an_artists_studio_01",
 									"profile": [
 										"http://iiif.io/api/image/2/level1.json",
 										{

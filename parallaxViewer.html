@@ -17,8 +17,8 @@
 
 <div class="parallaxer js-parallaxer"></div>
 
-<script src="https://unpkg.com/manifesto.js@3.0.9/dist/client/manifesto.bundle.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/openseadragon/2.4.0/openseadragon.min.js"></script>
+<script src="img/manifesto.bundle.js"></script>
+<script src="img/openseadragon.min.js"></script>
 <script type="text/javascript">
 const viewer = {
   id: 1,
@@ -26,26 +26,63 @@ const viewer = {
     el.id = el.id || 'viewer' + viewer.id++;
     el.osd = OpenSeadragon({
       id: el.id,
-      showNavigationControl: false
+      showNavigationControl: false,
+      zoomPerClick: 1.05,
+      zoomPerScroll: 1.05,
+      minZoomLevel: 0.5,
+      maxZoomLevel: 4,
+      gestureSettingsMouse: {
+        zoomToRefPoint: false,
+        flickEnabled: false
+      }
     });
-    el.xlate = null;
     el.osd.world.addHandler('add-item', (data) => {
-      const scaler = 4;
+      const scaler = 0.1;
       data.item.source.tileFormat = 'png';
       el.panZero = el.osd.viewport.getCenter();
-      el.layers = el.osd.world.getItemCount();
-      for (let i = 0; i < el.layers; i++) {
-        el.osd.world.getItemAt(i).setHeight(1 - ((1 - ((i * i / ((el.layers) * (el.layers))))) / scaler));
+      el.stackHeight = el.osd.world.getItemCount();
+      el.osd.world.setItemIndex(data.item, 0);
+      if (el.stackHeight > 1) {
+        for (let i = 0; i < el.stackHeight; i++) {
+        const item = el.osd.world.getItemAt(i);
+          item.setWidth((1 / el.stackHeight) + (i / el.stackHeight));
+          item.setPosition(
+            new OpenSeadragon.Point(
+              el.panZero.x - (item.getBounds().width / 2),
+              el.panZero.y - (item.getBounds().height / 2)
+            )
+          );
+        }
       }
-      el.osd.viewport.panTo(el.osd.world.getHomeBounds().getCenter());
+      //~ el.osd.viewport.panTo(el.osd.world.getHomeBounds().getCenter());
+      el.osdZoom = el.osd.viewport.getZoom();
+      el.osd.viewport.minZoomImageRatio = el.osdZoom;
     });
     el.osd.addHandler('pan', (data) => {
       const scaler = 8;
-      for (let i = 1; i < el.layers; i++) {
+      for (let i = 1; i < el.stackHeight; i++) {
         el.osd.world.getItemAt(i).setPosition(
           new OpenSeadragon.Point(
             -i * i * (data.center.x - el.panZero.x) / scaler,
             -i * i * (data.center.y - el.panZero.y) / scaler
+          )
+        );
+      }
+    });
+    el.osd.addHandler('zoom', (data) => {
+      const scaler = 0.005;
+      const vector = data.zoom > el.osdZoom ? 1 : -1;
+      el.osdZoom = data.zoom;
+      for (let i = 0; i < el.stackHeight; i++) {
+        const item = el.osd.world.getItemAt(i);
+        const w = item.getBounds().width;
+        const wDelta = i * i * scaler * vector;
+        item.setWidth(w + wDelta);
+        item.setPosition(
+          item.imageToViewportCoordinates(
+            item.getBounds().x - (wDelta / 2),
+            item.getBounds().y - (wDelta / 2)
+            * item.getBounds().height / item.getBounds().width,
           )
         );
       }
@@ -56,9 +93,7 @@ const viewer = {
 const parallaxer = document.querySelector(".js-parallaxer");
 
 const qstr = new Map(location.search.slice(1).split('&').map(kv => kv.split('=')));
-//~ let m = 'https://iiif.vam.ac.uk/demos/peepshow/manifest.json';
-//~ let m = 'https://iiif.vam.ac.uk/collections/MSL:1876:Forster:141:I/manifest.json';
-let m = 'http://localhost/Javascriptings/img/parallax/manifest.json';
+let m = 'img/manifest_peepshow.json';
 
 if (!qstr.has('manifest')) {
   document.location.search = 'manifest=' + m;
@@ -70,9 +105,7 @@ manifesto.loadManifest(m).then((manifest) => {
   const cvs = mf.getSequences()[0].getCanvases();
   let img = null;
   viewer.init(parallaxer);
-  let i=0;//~ limit for testing
   Array.from(cvs, (cv) => {
-    if(++i>3) return;//~ limit for testing
     /* P3 manifest, else P2 */
     if (cv.getImages().length) {
       img = cv.getImages()[0].getResource().getServices()[0].id;
