@@ -31,7 +31,7 @@ const viewer = {
       zoomPerScroll: 1.05,
       zoomPerSecond: 0,
       minZoomImageRatio: 1,
-      minZoomLevel: 0.5,
+      minZoomLevel: 0.3,
       maxZoomLevel: 4,
       gestureSettingsMouse: {
         zoomToRefPoint: false,
@@ -44,18 +44,19 @@ const viewer = {
       el.panZero = el.osd.viewport.getCenter();
       el.stackHeight = el.osd.world.getItemCount();
       el.osd.world.setItemIndex(data.item, 0);
-      for (let i = 0; i < el.stackHeight; i++) {
-        const item = el.osd.world.getItemAt(i);
-        if (el.stackHeight > 1) {
-          item.setWidth((1 / (scaler * el.stackHeight)) + (i * scaler / el.stackHeight) - scaler);
-          item.setPosition(
-            new OpenSeadragon.Point(
-              el.panZero.x - (item.getBounds().width / 2),
-              el.panZero.y - (item.getBounds().height / 2)
-            )
-          );
-        }
-      }
+      el.osd.viewport.zoomTo(0.3);
+      //~ for (let i = 0; i < el.stackHeight; i++) {
+        //~ const item = el.osd.world.getItemAt(i);
+        //~ if (el.stackHeight > 1) {
+          //~ item.setWidth((1 / (scaler * el.stackHeight)) + (i * scaler / el.stackHeight) - scaler);
+          //~ item.setPosition(
+            //~ new OpenSeadragon.Point(
+              //~ el.panZero.x - (item.getBounds().width / 2),
+              //~ el.panZero.y - (item.getBounds().height / 2)
+            //~ )
+          //~ );
+        //~ }
+      //~ }
       el.osdZoom = el.osd.viewport.getZoom();
     });
     el.osd.addHandler('pan', (data) => {
