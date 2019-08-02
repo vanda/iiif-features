@@ -86,13 +86,14 @@ const viewer = {
             if (i > 0
               && w + wDelta > el.osd.world.getItemAt(i-1).getBounds().width) {
               item.setWidth(w + wDelta);
-              item.setPosition(
-                item.imageToViewportCoordinates(
-                  item.getBounds().x - (wDelta / 2),
-                  (item.getBounds().y - (wDelta / 2))
-                  * item.getBounds().height / item.getBounds().width
-                )
-              );
+              el.osd.viewport.panTo(el.osd.viewport.getCenter());
+              //~ item.setPosition(
+                //~ item.imageToViewportCoordinates(
+                  //~ item.getBounds().x - (wDelta * i / scaler),
+                  //~ (item.getBounds().y - (wDelta * i / scaler))
+                  //~ * item.getBounds().height / item.getBounds().width
+                //~ )
+              //~ );
             }
           }
         }
