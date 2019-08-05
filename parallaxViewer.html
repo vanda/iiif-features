@@ -31,32 +31,23 @@ const viewer = {
       zoomPerScroll: 1.05,
       zoomPerSecond: 0,
       minZoomImageRatio: 1,
-      minZoomLevel: 0.3,
+      minZoomLevel: 0.5,
       maxZoomLevel: 4,
       gestureSettingsMouse: {
+        zoomToRefPoint: false,
+        flickEnabled: false
+      },
+      gestureSettingsTouch: {
         zoomToRefPoint: false,
         flickEnabled: false
       }
     });
     el.osd.world.addHandler('add-item', (data) => {
-      const scaler = 0.2;
       data.item.source.tileFormat = 'png';
       el.panZero = el.osd.viewport.getCenter();
       el.stackHeight = el.osd.world.getItemCount();
       el.osd.world.setItemIndex(data.item, 0);
-      el.osd.viewport.zoomTo(0.3);
-      //~ for (let i = 0; i < el.stackHeight; i++) {
-        //~ const item = el.osd.world.getItemAt(i);
-        //~ if (el.stackHeight > 1) {
-          //~ item.setWidth((1 / (scaler * el.stackHeight)) + (i * scaler / el.stackHeight) - scaler);
-          //~ item.setPosition(
-            //~ new OpenSeadragon.Point(
-              //~ el.panZero.x - (item.getBounds().width / 2),
-              //~ el.panZero.y - (item.getBounds().height / 2)
-            //~ )
-          //~ );
-        //~ }
-      //~ }
+      el.osd.viewport.zoomTo(el.osd.minZoomLevel);
       el.osdZoom = el.osd.viewport.getZoom();
     });
     el.osd.addHandler('pan', (data) => {
@@ -74,30 +65,25 @@ const viewer = {
       });
     });
     el.osd.addHandler('zoom', (data) => {
-      window.requestAnimationFrame(() => {
-        if (el.osd.viewport.getZoom() > el.osd.minZoomLevel + el.osd.zoomPerScroll - 1
-          && el.osd.viewport.getZoom() < el.osd.maxZoomLevel - el.osd.zoomPerScroll - 1) {
-          const scaler = 0.005;
-          const vector = data.zoom > el.osdZoom ? 1 : -1;
-          el.osdZoom = data.zoom;
-          for (let i = 0; i < el.stackHeight; i++) {
-            const item = el.osd.world.getItemAt(i);
-            const w = item.getBounds().width;
-            const wDelta = i * i * scaler * vector;
-            if (i > 0
-              && w + wDelta > el.osd.world.getItemAt(i-1).getBounds().width) {
+      if (el.osd.viewport.getZoom() > el.osd.minZoomLevel + el.osd.zoomPerScroll - 1
+        && el.osd.viewport.getZoom() < el.osd.maxZoomLevel - el.osd.zoomPerScroll - 1) {
+        const scaler = 0.005;
+        const vector = data.zoom > el.osdZoom ? 1 : -1;
+        el.osdZoom = data.zoom;
+        for (let i = 0; i < el.stackHeight; i++) {
+          const item = el.osd.world.getItemAt(i);
+          const w = item.getBounds().width;
+          const wDelta = i * i * scaler * vector;
+          if (i > 0
+            && w + wDelta > el.osd.world.getItemAt(i-1).getBounds().width) {
+            window.requestAnimationFrame(() => {
               item.setWidth(w + wDelta);
-              el.osd.viewport.panTo(el.osd.viewport.getCenter());
-              //~ item.setPosition(
-                //~ item.imageToViewportCoordinates(
-                  //~ item.getBounds().x - (wDelta * i / scaler),
-                  //~ (item.getBounds().y - (wDelta * i / scaler))
-                  //~ * item.getBounds().height / item.getBounds().width
-                //~ )
-              //~ );
-            }
+            });
           }
         }
+      }
+      window.requestAnimationFrame(() => {
+        el.osd.viewport.panTo(el.panZero);
       });
     });
   }
