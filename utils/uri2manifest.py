@@ -3,8 +3,93 @@ import os
 
 def items2Manifest(source_file: str, dest_file: str, version: int):
     with open(source_file, 'r') as reader, open(dest_file, 'w') as writer:
-        i = 0
+        if version == 2:
+            # P2 manifest
+            manifest_start = """
+            {
+              "@context": "http://iiif.io/api/presentation/2/context.json",
+              "@id": "http://e01b6946-ee16-4436-914e-c3f0c26023a1",
+              "@type": "sc:Manifest",
+              "label": "[Click to edit label]",
+              "metadata": [],
+              "description": [
+                {
+                  "@value": "[Click to edit description]",
+                  "@language": "en"
+                }
+              ],
+              "license": "https://creativecommons.org/licenses/by/3.0/",
+              "attribution": "[Click to edit attribution]",
+              "sequences": [
+                {
+                  "@id": "http://eb55878b-dd9a-4397-9187-8dd2d2f568f9",
+                  "@type": "sc:Sequence",
+                  "label": "Normal Sequence",
+                  "canvases": [
+            """
+        else:
+            # P3 manifest
+            manifest_start = """
+            {
+              "@context": [
+                "http://www.w3.org/ns/anno.jsonld",
+                "http://iiif.io/api/presentation/3/context.json"
+              ],
+              "id": "https://vanda.github.io/iiif-features/img/compariscope_manifest.json",
+              "type": "Manifest",
+              "label": {
+                "en": [
+                  "LayerStack demo"
+                ]
+              },
+              "metadata": [
+                {
+                  "label": {
+                    "en": [
+                      "Comment"
+                    ]
+                  },
+                  "value": {
+                    "@none": [
+                      "LayerStack demo"
+                    ]
+                  }
+                }
+              ],
+              "summary": {
+                "en": [
+                  "LayerStack demo"
+                ]
+              },
+              "thumbnail": [
+                {
+                  "id": "#TODO",
+                  "type": "Image",
+                  "width": 200,
+                  "height": 300,
+                  "service": {
+                    "id": "#TODO",
+                    "type": "ImageService2",
+                    "profile": "level1"
+                  }
+                }
+              ],
+              "rights": "https://creativecommons.org/licenses/by/4.0/",
+              "homepage": {
+                "id": "https://vanda.github.io/iiif-features/img/compariscope_manifest.json",
+                "type": "Text",
+                "label": {
+                  "en": [
+                    "LayerStack demo"
+                  ]
+                },
+                "format": "text/html"
+              },
+              "items": [
+            """
+        writer.write(manifest_start)
 
+        i = 0
         for imgDataStr in reader:
             i += 1
             imgData = imgDataStr.replace('\n', '').split(' ')
@@ -18,7 +103,7 @@ def items2Manifest(source_file: str, dest_file: str, version: int):
                 {
                   "@id": "https://vanda.github.io/iiif-features/img/manifest.json/canvas/%(i)s",
                   "@type": "sc:Canvas",
-                  "label": "Hi-res, colour photograph",
+                  "label": "canvas %(i)s",
                   "width": %(imgW)s,
                   "height": %(imgH)s,
                   "images": [
@@ -74,7 +159,7 @@ def items2Manifest(source_file: str, dest_file: str, version: int):
                   "type": "Canvas",
                   "label": {
                     "en": [
-                      "360 frame %(i)s"
+                      "canvas %(i)s"
                     ]
                   },
                   "summary": {
@@ -125,6 +210,24 @@ def items2Manifest(source_file: str, dest_file: str, version: int):
                 },""" % locals()
 
             writer.write(manifest_item)
+
+        if version == 2:
+            # P2 manifest
+            manifest_end = """
+                  ]
+                }
+              ]
+            }
+            """
+        else:
+            # P3 manifest
+            manifest_end = """
+              ],
+              "structures": [
+              ]
+            }
+            """
+        writer.write(manifest_end)
 
 
 if __name__ == "__main__":
