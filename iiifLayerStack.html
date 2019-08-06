@@ -133,6 +133,7 @@ const qstr = new Map(location.search.slice(1).split('&').map(kv => kv.split('=')
 //~ let m = 'img/manifest_raphael_scan.json';
 //~ let m = 'img/manifest_raphael_tapestry.json';
 //~ let m = 'img/manifest_360.json';
+//~ let m = 'img/manifest_multispectral.json';
 let m = 'img/manifest_constable.json';
 
 if (!qstr.has('manifest')) {
@@ -158,6 +159,10 @@ manifesto.loadManifest(m).then((manifest) => {
     const stack = mf.getAllRanges().find((range) => {
       return range.__jsonld.behavior.includes('superimpose-regions');
     });
+    if (!stack) {
+      alert("Please provide alignment regions as Fragment Selectors in a P3 manifest.");
+      return false;
+    }
     cvs = Array.from(stack.__jsonld.items, (item) => {
       return {
         cv: mf.getSequences()[0].getCanvasById(item.source),
