@@ -150,14 +150,20 @@ if (!qstr.has('manifest')) {
 
 manifesto.loadManifest(m).then((manifest) => {
   const viewer = iiifLayerStack.init(document.querySelector('.js-iiifLayerStack'));
-  const mf = manifesto.create(manifest);
+  let mf = null;
+  try {
+   mf = manifesto.create(manifest);
+  } catch {
+    alert("Invalid manifest");
+    return false;
+  }
   let i = 0;
   let vwScaler = null;
   let layers = null;
 
   /* P2 manifest, else P3 */
   if (!mf.context.includes('http://iiif.io/api/presentation/3/context.json')) {
-    console.log("Please provide alignment regions as Fragment Selectors in a P3 manifest.");
+    console.log("Note! Any specific alignment of layers can be supplied as regions in Fragment Selectors in a P3 manifest.");
     layers = Array.from(mf.getSequences()[0].getCanvases(), (item) => {
       return { canvas: item }
     });
