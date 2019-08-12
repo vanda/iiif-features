@@ -228,14 +228,6 @@
       "items": [
         {
           "type": "SpecificResource",
-          "source": "https://vanda.github.io/iiif-features/img/manifest.json/canvas/1",
-          "selector": {
-            "type": "FragmentSelector",
-            "value": "xywh=pct:13.195,5.023,71.005,87.778"
-          }
-        },
-        {
-          "type": "SpecificResource",
           "source": "https://vanda.github.io/iiif-features/img/manifest.json/canvas/2",
           "selector": {
             "type": "FragmentSelector",
@@ -249,7 +241,15 @@
             "type": "FragmentSelector",
             "value": "xywh=pct:5.045,3.333,85.347,91.388"
           }
-        }  
+        },
+        {
+          "type": "SpecificResource",
+          "source": "https://vanda.github.io/iiif-features/img/manifest.json/canvas/1",
+          "selector": {
+            "type": "FragmentSelector",
+            "value": "xywh=pct:13.195,5.023,71.005,87.778"
+          }
+        }
       ]
     }
   ]
