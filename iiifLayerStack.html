@@ -215,7 +215,7 @@ manifesto.loadManifest(m).then((manifest) => {
           )
         );
         if (data.item.viewer.world.getItemCount() === 1) {
-          data.item.viewport.zoomTo(100 / region[2]);
+          //~ data.item.viewport.zoomTo(100 / region[2]);
           data.item.viewport.panTo(
             new OpenSeadragon.Point(
               (region[0] / 100) + (region[2] / 200),
