@@ -1,9 +1,9 @@
 import argparse
 import os
 
-def items2Manifest(source_file: str, dest_file: str, version: int):
-    with open(source_file, 'r') as reader, open(dest_file, 'w') as writer:
-        if version == 2:
+def items2Manifest(source_file: str, output: str, version: str):
+    with open(source_file, 'r') as reader, open(output, 'w') as writer:
+        if version == '2':
             # P2 manifest
             manifest_start = """
             {
@@ -97,9 +97,11 @@ def items2Manifest(source_file: str, dest_file: str, version: int):
             imgW = imgData[1]
             imgH = imgData[2]
 
-            if version == 2:
+            manifest_item = ',' if i > 1 else ''
+
+            if version == '2':
                 # P2 manifest
-                manifest_item = """
+                manifest_item += """
                 {
                   "@id": "https://vanda.github.io/iiif-features/img/manifest.json/canvas/%(i)s",
                   "@type": "sc:Canvas",
@@ -150,10 +152,10 @@ def items2Manifest(source_file: str, dest_file: str, version: int):
                     }
                   ],
                   "related": ""
-                },""" % locals()
+                }""" % locals()
             else:
                 # P3 manifest
-                manifest_item = """
+                manifest_item += """
                 {
                   "id": "https://vanda.github.io/iiif-features/img/manifest.json/canvas/%(i)s",
                   "type": "Canvas",
@@ -207,11 +209,11 @@ def items2Manifest(source_file: str, dest_file: str, version: int):
                       ]
                     }
                   ]
-                },""" % locals()
+                }""" % locals()
 
             writer.write(manifest_item)
 
-        if version == 2:
+        if version == '2':
             # P2 manifest
             manifest_end = """
                   ]
@@ -238,7 +240,7 @@ if __name__ == "__main__":
 
     # Add the arguments:
     #   - source_file: the source file we want to convert
-    #   - dest_file: the destination where the output should go
+    #   - output: the destination where the output should go
     #   - version: the version of the IIIF Presentation API to use
 
     # Note: the use of the argument type of argparse.FileType could
@@ -249,15 +251,15 @@ if __name__ == "__main__":
     )
 
     parser.add_argument(
-        '--dest_file',
-        help='Location of dest file (default: source_file appended with `.json`',
-        default=None
-    )
-
-    parser.add_argument(
         '--version',
         help='IIIF Presentation API verion (default: 2)',
         default=2
+    )
+
+    parser.add_argument(
+        '--output',
+        help='Output file (default: source_file appended with `.json`',
+        default=None
     )
 
     # Parse the args (argparse automatically grabs the values from
@@ -265,7 +267,7 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     s_file = args.source_file
-    d_file = args.dest_file
+    d_file = args.output
     p_version = args.version
 
     # If the destination file wasn't passed, then assume we want to
