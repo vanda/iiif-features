@@ -91,13 +91,13 @@
               "type": "Annotation",
               "motivation": "painting",
               "body": {
-                "@id": "https://framemark-int.vam.ac.uk/collections/2013GC0441/full/full/0/default",
+                "@id": "https://framemark.vam.ac.uk/collections/2013GC0441/full/full/0/default",
                 "type": "Image",
                 "format": "image/jpeg",
                 "width": 2500,
                 "height": 1875,
                 "service": {
-                  "id": "https://framemark-int.vam.ac.uk/collections/2013GC0441",
+                  "id": "https://framemark.vam.ac.uk/collections/2013GC0441",
                   "type": "ImageService2",
                   "profile": "level1"
                 }

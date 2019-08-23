@@ -14,24 +14,24 @@
   <title>IIIF Compariscope</title>
   <style type="text/css">
     html, body, #cs-wrapper { height:100%; margin:0; text-align:center; }
-    body { background:#333; color:#000; font:10px/1 courier,monospace; }
+    body { background:#333; color:#000; font:14px/1 courier,monospace; }
     .display-none { display:none!important; }
-    #cs-editor { background:#fff url(img/compariscope/cross-hairs.png) 50% 50% no-repeat; height:400px; width:400px; margin:5px auto 20px; outline:2px dashed #f54007; overflow:hidden; position:relative; resize:both; }
-    #cs-editor::after { content:"❖"; cursor:pointer; font-size:20px; background:#f54007; line-height:16px; height:16px; width:16px; text-align:center; position:absolute; bottom:0; right:0; }
-    #cs-editor img { cursor:pointer; outline:4px dashed #f54007; position:absolute; left:0; top:0; }
+    #cs-editor { background: repeating-radial-gradient(circle, #555, #555 10px, #000 10px, #000 20px); height:400px; width:400px; margin:5px auto 20px; outline:2px dashed #fff; overflow:hidden; position:relative; resize:both; }
+    #cs-editor::after { content:"❖"; cursor:pointer; font-size:20px; background:#fff; line-height:16px; height:16px; width:16px; text-align:center; position:absolute; bottom:0; right:0; }
+    #cs-editor img { cursor:pointer; outline:4px dashed #fff; position:absolute; left:0; top:0; }
     #cs-viewer { height:100%; position:relative; width:100%; }
     #cs-viewer img { cursor:pointer; margin:auto; max-height:100%; max-width:100%; position:absolute; top:0; bottom:0; left:0; right:0; user-select:none; }
     #cs-viewer, 
     .cs-preview #cs-editor, .cs-preview .cs-ctrl { display:none; }
     .cs-preview #cs-viewer { display:block; }
     .cs-ctrl { width:800px; max-width:90%; margin:0 auto 20px; text-align:center; }
-    .cs-btn { background:#f54007; border-radius:10px; box-shadow:inset 0 0 2px #000; cursor:pointer; display:inline-block; font-size:20px; font-weight:600; height:24px; line-height:24px; text-align:center; width:24px; vertical-align:middle; }
+    .cs-btn { background:#fff; border-radius:12px; box-shadow:inset 0 0 5px #aaa; cursor:pointer; display:inline-block; font-size:20px; font-weight:600; height:24px; line-height:24px; text-align:center; width:24px; vertical-align:middle; }
     .cs-btn:active { margin:1px 0 0 1px; }
-    .cs-btn.active { background:#000; color:#f54007; }
-    #cs-iiif-src { border:0; box-sizing:border-box; display:inline-block; padding:4px; height:24px; width:calc(100% - 160px); text-align:right; }
+    .cs-btn.active { background:#bbb; }
+    #cs-iiif-src { border:0; box-sizing:border-box; display:inline-block; padding:4px; height:24px; width:calc(100% - 164px); text-align:right; }
     #cs-fader, #cs-range { width:100%; }
     #cs-range { background:#fff; }
-    #cs-range div { border-right:1px solid #fff; box-sizing:border-box; color:#f54007; float:left; font-weight:600; padding-right:4px; text-align:right; }
+    #cs-range div { border-right:1px solid #fff; box-sizing:border-box; color:#fff; float:left; font-weight:600; padding-right:4px; text-align:right; }
     #cs-mode { width:6em; z-index:1; }
     #cs-mode::after { content:'Preview'; }
     .cs-preview #cs-mode { position:fixed; right:5%; top:5%; }
@@ -44,7 +44,7 @@
     #cs-viewer.cs-unsplit img { max-width:50%; }
     #cs-viewer.cs-split img,
     #cs-viewer.cs-unsplit img { transition:left 1s, right 1s; }
-    #cs-op-url { background:#fff; font-size:18px; height:22px; line-height:22px; white-space:nowrap; }
+    #cs-op-url { background:#fff; display:inline-block; font-size:18px; font-weight:600; height:22px; line-height:22px; max-width:100%; overflow:hidden; padding: 4px 34px; white-space:nowrap; }
   </style>	
 </head>
 
@@ -66,10 +66,11 @@
   </div>
   <a class="cs-btn" id="cs-mode"></a>
   <a class="cs-btn display-none" id="cs-mixer"></a>
-  <a id="cs-op-url"></a>
+  <a class="display-none" id="cs-op-url"></a>
   <div id="cs-viewer"></div>
 </div>
 
+<script src="img/manifesto.bundle.js"></script>
 <script type="text/javascript">
 (function(){
   function getComputed(el,style){ var s; if( style=='width' ){ s=el.getBoundingClientRect().right-el.getBoundingClientRect().left; }else if( style=='height' ){ s=el.getBoundingClientRect().bottom-el.getBoundingClientRect().top }else if(window.getComputedStyle){ s=document.defaultView.getComputedStyle(el,null).getPropertyValue(style); }else if(el.currentStyle){ s=el.currentStyle[style] } return parseFloat(s); }
@@ -159,24 +160,40 @@
 
   window.onload = function(e){ imgSrc.focus(); }
 
-  imgAdd.onclick = function(e){ 
+  imgAdd.onclick = function(e){
     if( imgSrc.value.indexOf('/full/full/') < 0 ){
       alert('Expects a IIIF API URL for the full size & full region of an image.');
       return false;
     }
-    var img = document.createElement('img');
-    img.src = imgSrc.value;
+    const img = document.createElement('img');
+    let region = null;
+    let source = imgSrc.value;
+    if (imgSrc.value.indexOf('?') > 0) {
+      region = imgSrc.value.slice(imgSrc.value.indexOf('?') + 10).split(',');
+      source = source.substring(0, imgSrc.value.indexOf('?'));
+    }
+    img.src = source;
     compariscope.appendChild(img);
     img.onload = function() {
       if( compariscope.imgs.length===1 ){ 
         compariscope.style.width = Math.round(getComputed(compariscope,'height') * this.naturalWidth/this.naturalHeight)+'px';  
       }
-      if( this.naturalWidth > this.naturalHeight ){
+      if (region) {
+        this.style.width = `${parseInt(compariscope.style.width) / (region[2] / 100)}px`;
+        this.style.height = 'auto';
+      } else if ( this.naturalWidth > this.naturalHeight ){
         this.style.width = '100%'; this.style.height = 'auto';
-      }else{
+      } else {
         this.style.width = 'auto'; this.style.height = '100%';
       }
-      setTimeout(function(){ dragZoom.init(img, {'zoom':1, 'siblings':compariscope.imgs}) }, 0);
+      setTimeout(function(){
+        dragZoom.size(img);
+        if (region) {
+          img.style.left = `-${img.wh[0] * (region[0] / 100)}px`;
+          img.style.top = `-${img.wh[1] * (region[1] / 100)}px`;
+        }
+        dragZoom.init(img, {'zoom':1, 'siblings':compariscope.imgs});
+      }, 0);
       compariscope.fade(1);
     }
     compariscope.imgs.push(img);
@@ -229,7 +246,7 @@
 
   mode.onclick = function(e){
     var img, i,
-      html = sizes = logs = '', srcset, src,
+      html = sizes = region = '', srcset, src,
       duo = compariscope.imgs.length===2,
       variants = [320, 640, 960, 1280, 1920], v,
       variant1 = duo? '960' : '1920';
@@ -242,17 +259,16 @@
         alert('Layer '+ (i+1) +' is under-cropped!');
         return;
       }
-      src = img.src.replace('/full/full/', '/pct:'+Number(Math.round((-100*img.xy[0]/img.wh[0])+"e+3")+"e-3")+','+Number(Math.round((-100*img.xy[1]/img.wh[1])+"e+3")+"e-3")+','+Number(Math.round((100*img.whP[0]/img.wh[0])+"e+3")+"e-3")+','+Number(Math.round((100*img.whP[1]/img.wh[1])+"e+3")+"e-3")+'/full/');
-      logs += src + '\n';
+      region = 'pct:'+Number(Math.round((-100*img.xy[0]/img.wh[0])+"e+3")+"e-3")+','+Number(Math.round((-100*img.xy[1]/img.wh[1])+"e+3")+"e-3")+','+Number(Math.round((100*img.whP[0]/img.wh[0])+"e+3")+"e-3")+','+Number(Math.round((100*img.whP[1]/img.wh[1])+"e+3")+"e-3");
+      src = img.src.replace('full/full/', region+'/full/');
       for( v=0; v<variants.length; ++v ){
         if( v>0 ) srcset += ', ';
         srcset += (src.replace('full', variants[v]+',') + ' '+variants[v]+'w');
       }
-      viewer.opURLs.push(src);
+      viewer.opURLs.push(region);
       src = src.replace('full', variant1+',');
       html += '<img src="'+src+'" srcset="'+srcset+'" sizes="'+sizes+'">';
     }
-    console.log(logs);
     viewer.innerHTML = html;
     viewer.classList.remove('cs-split');
     viewer.classList.remove('cs-unsplit');
@@ -266,8 +282,10 @@
       }else{
         iFader.init(viewer);
       }
+      opURL.classList.remove('display-none');
     }else{
       iFader.uninit(viewer);
+      opURL.classList.add('display-none');
     }
   };
 
@@ -327,8 +345,8 @@
     el:null, xy0:null, v0:null, xyT:null, xyE:null, d0:null, 
     size: function(el){
       el.wh = [Math.ceil(getComputed(el,'width')), Math.ceil(getComputed(el,'height'))];
-      el.whP = [Math.round(getComputed(el.P,'width')), Math.round(getComputed(el.P,'height'))];
-      el.xyP = getPgOffset(el.P);
+      el.whP = [Math.round(getComputed(el.parentNode,'width')), Math.round(getComputed(el.parentNode,'height'))];
+      el.xyP = getPgOffset(el.parentNode);
       el.style.width = el.wh[0]+'px'; el.style.height = el.wh[1]+'px';
     },
     init: function(el, opt){
@@ -336,7 +354,6 @@
       if( !opt ) var opt = {};
       el.zoomer = opt.zoom || 0;
       el.siblings = opt.siblings || el.parentNode.getElementsByTagName(el.tagName);
-      el.P = el.parentNode;
       dragZoom.size(el);
       el.xy = [getComputed(el,'left'), getComputed(el,'top')];
       if( !el.move ){
@@ -448,6 +465,45 @@
       return false;
     }
   };
+
+  const qstr = new Map(location.search.slice(1).split('&').map(kv => kv.split('=')));
+  let m = 'img/manifest_constable.json';
+
+  if (!qstr.has('manifest')) {
+    document.location.search = 'manifest=' + m;
+  } else {
+    m = qstr.get('manifest');
+  }
+
+  manifesto.loadManifest(m).then((manifest) => {
+    let mf = null;
+    try {
+     mf = manifesto.create(manifest);
+    } catch {
+      alert("Invalid manifest");
+      return false;
+    }
+    let layers = null;
+
+    if (!mf.context.includes('http://iiif.io/api/presentation/3/context.json')) {
+      alert("P3 manifests only please");
+    } else {
+      const stack = mf.getAllRanges().find((range) => {
+        return range.__jsonld.behavior.includes('superimpose-regions');
+      });
+      if (!stack) {
+        alert("Please provide alignment regions as Fragment Selectors in a P3 manifest.");
+        return false;
+      }
+      Array.from(stack.__jsonld.items, (item) => {
+        const img = mf.getSequences()[0].getCanvasById(item.source).getContent()[0].getBody()[0].id;
+        const region = item.selector.value;
+        imgSrc.value = `${img}.jpg?${region}`;
+        imgAdd.click();
+      });
+    }
+  });
+
 })();
 </script>
 </body>
