@@ -1,14 +1,16 @@
 import argparse
 import os
+import uuid
 
 def items2Manifest(source_file: str, output: str, version: str):
     with open(source_file, 'r') as reader, open(output, 'w') as writer:
+        uid = uuid.uuid1()
         if version == '2':
             # P2 manifest
             manifest_start = """
             {
               "@context": "http://iiif.io/api/presentation/2/context.json",
-              "@id": "http://e01b6946-ee16-4436-914e-c3f0c26023a1",
+              "@id": "https://%(uid)s",
               "@type": "sc:Manifest",
               "label": "[Click to edit label]",
               "metadata": [],
@@ -22,11 +24,11 @@ def items2Manifest(source_file: str, output: str, version: str):
               "attribution": "[Click to edit attribution]",
               "sequences": [
                 {
-                  "@id": "http://eb55878b-dd9a-4397-9187-8dd2d2f568f9",
+                  "@id": "https://%(uid)s",
                   "@type": "sc:Sequence",
                   "label": "Normal Sequence",
                   "canvases": [
-            """
+            """ % locals()
         else:
             # P3 manifest
             manifest_start = """
@@ -35,7 +37,7 @@ def items2Manifest(source_file: str, output: str, version: str):
                 "http://www.w3.org/ns/anno.jsonld",
                 "http://iiif.io/api/presentation/3/context.json"
               ],
-              "id": "https://vanda.github.io/iiif-features/img/compariscope_manifest.json",
+              "id": "https://%(uid)s",
               "type": "Manifest",
               "label": {
                 "en": [
@@ -86,7 +88,7 @@ def items2Manifest(source_file: str, output: str, version: str):
                 "format": "text/html"
               },
               "items": [
-            """
+            """ % locals()
         writer.write(manifest_start)
 
         i = 0
@@ -103,7 +105,7 @@ def items2Manifest(source_file: str, output: str, version: str):
                 # P2 manifest
                 manifest_item += """
                 {
-                  "@id": "https://vanda.github.io/iiif-features/img/manifest.json/canvas/%(i)s",
+                  "@id": "%(imgURI)s/canvas/%(i)s",
                   "@type": "sc:Canvas",
                   "label": "canvas %(i)s",
                   "width": %(imgW)s,
@@ -111,7 +113,7 @@ def items2Manifest(source_file: str, output: str, version: str):
                   "images": [
                     {
                       "@context": "http://iiif.io/api/presentation/2/context.json",
-                      "@id": "https://vanda.github.io/iiif-features/img/manifest.json/annotation/%(i)s",
+                      "@id": "%(imgURI)s/annotation/%(i)s",
                       "@type": "oa:Annotation",
                       "motivation": "sc:painting",
                       "resource": {
@@ -148,7 +150,7 @@ def items2Manifest(source_file: str, output: str, version: str):
                         "width": %(imgW)s,
                         "height": %(imgH)s
                       },
-                      "on": "https://vanda.github.io/iiif-features/img/manifest.json/canvas/%(i)s"
+                      "on": "%(imgURI)s/canvas/%(i)s"
                     }
                   ],
                   "related": ""
@@ -157,7 +159,7 @@ def items2Manifest(source_file: str, output: str, version: str):
                 # P3 manifest
                 manifest_item += """
                 {
-                  "id": "https://vanda.github.io/iiif-features/img/manifest.json/canvas/%(i)s",
+                  "id": "%(imgURI)/canvas/%(i)s",
                   "type": "Canvas",
                   "label": {
                     "en": [
@@ -185,11 +187,11 @@ def items2Manifest(source_file: str, output: str, version: str):
                   },
                   "items": [
                     {
-                      "id": "https://vanda.github.io/iiif-features/img/manifest.json/list/%(i)s",
+                      "id": "%(imgURI)s/list/%(i)s",
                       "type": "AnnotationPage",
                       "items": [
                         {
-                          "id": "https://vanda.github.io/iiif-features/img/manifest.json/annotation/%(i)s",
+                          "id": "%(imgURI)s/annotation/%(i)s",
                           "type": "Annotation",
                           "motivation": "painting",
                           "body": {
@@ -204,7 +206,7 @@ def items2Manifest(source_file: str, output: str, version: str):
                               "profile": "level1"
                             }
                           },
-                          "target": "https://vanda.github.io/iiif-features/img/manifest.json/canvas/%(i)s"
+                          "target": "%(imgURI)s/canvas/%(i)s"
                         }
                       ]
                     }
