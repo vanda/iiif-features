@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  <title>iiif Parallax Viewer</title>
+  <style type="text/css">
+    html, body { height:100%; margin:0; }
+    body { background:#000; font:14px/1 helvetica,arial,freesans,sans-serif; }
+    .parallaxer { height:100%; width:100%; }
+  </style>	
+</head>
+
+<body>
+
+<div class="parallaxer js-parallaxer"></div>
+
+<script src="img/manifesto.bundle.js"></script>
+<script src="img/openseadragon.min.js"></script>
+<script type="text/javascript">
+const viewer = {
+  id: 1,
+  init: (el) => {
+    el.id = el.id || 'viewer' + viewer.id++;
+    el.osd = OpenSeadragon({
+      id: el.id,
+      showNavigationControl: false,
+      zoomPerClick: 1.05,
+      zoomPerScroll: 1.05,
+      zoomPerSecond: 0,
+      minZoomImageRatio: 1,
+      minZoomLevel: 0.5,
+      maxZoomLevel: 4,
+      gestureSettingsMouse: {
+        zoomToRefPoint: false,
+        flickEnabled: false
+      },
+      gestureSettingsTouch: {
+        zoomToRefPoint: false,
+        flickEnabled: false
+      }
+    });
+    el.osd.world.addHandler('add-item', (data) => {
+      data.item.source.tileFormat = 'png';
+      el.panZero = el.osd.viewport.getCenter();
+      el.stackHeight = el.osd.world.getItemCount();
+      el.osd.world.setItemIndex(data.item, 0);
+      el.osd.viewport.zoomTo(el.osd.minZoomLevel);
+      el.osdZoom = el.osd.viewport.getZoom();
+    });
+    el.osd.addHandler('pan', (data) => {
+      window.requestAnimationFrame(() => {
+        const scaler = el.osd.viewport.getZoom() / 20;
+        for (let i = 0; i < el.stackHeight; i++) {
+          const item = el.osd.world.getItemAt(i);
+          item.setPosition(
+            new OpenSeadragon.Point(
+              el.panZero.x - (item.getBounds().width / 2) + (i * i * scaler * (el.panZero.x - data.center.x)),
+              el.panZero.y - (item.getBounds().height / 2) + (i * i * scaler * (el.panZero.y - data.center.y))
+            )
+          );
+        }
+      });
+    });
+    el.osd.addHandler('zoom', (data) => {
+      if (el.osd.viewport.getZoom() > el.osd.minZoomLevel + el.osd.zoomPerScroll - 1
+        && el.osd.viewport.getZoom() < el.osd.maxZoomLevel - el.osd.zoomPerScroll - 1) {
+        const scaler = 0.005;
+        const vector = data.zoom > el.osdZoom ? 1 : -1;
+        el.osdZoom = data.zoom;
+        for (let i = 0; i < el.stackHeight; i++) {
+          const item = el.osd.world.getItemAt(i);
+          const w = item.getBounds().width;
+          const wDelta = i * i * scaler * vector;
+          if (i > 0
+            && w + wDelta > el.osd.world.getItemAt(i-1).getBounds().width) {
+            window.requestAnimationFrame(() => {
+              item.setWidth(w + wDelta);
+            });
+          }
+        }
+      }
+      window.requestAnimationFrame(() => {
+        el.osd.viewport.panTo(el.panZero);
+      });
+    });
+  }
+};
+
+const parallaxer = document.querySelector(".js-parallaxer");
+
+const qstr = new Map(location.search.slice(1).split('&').map(kv => kv.split('=')));
+let m = 'img/manifest_peepshow.json';
+
+if (!qstr.has('manifest')) {
+  document.location.search = 'manifest=' + m;
+} else {
+  m = qstr.get('manifest');
+}
+manifesto.loadManifest(m).then((manifest) => {
+  const mf = manifesto.create(manifest);
+  const cvs = mf.getSequences()[0].getCanvases();
+  let img = null;
+  viewer.init(parallaxer);
+  Array.from(cvs, (cv) => {
+    /* P3 manifest, else P2 */
+    if (cv.getImages().length) {
+      img = cv.getImages()[0].getResource().getServices()[0].id;
+    } else if (cv.getContent().length) {
+      img = cv.getContent()[0].getBody()[0].getServices()[0].id;
+    }
+    if (img) {
+      parallaxer.osd.addTiledImage({
+        tileSource: `${img}/info.json`
+      });
+    }
+  });
+});
+</script>
+</body>
+</html>

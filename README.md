@@ -2,8 +2,11 @@
 Code and demos around the use of IIIF, 
 from [The Victoria and Albert Museum](vam.ac.uk)
 
-## [iiif Image tester](https://vanda.github.io/iiif-features/openSeadragon.html)
-A basic instance of OpenSeadragon to test a iiif image info.json, passed via the querystring
+
+## [Layer Stack](https://vanda.github.io/iiif-features/iiifLayerStack.html)
+A viewer for stacking IIIF images, in superimposition, to examine differences incrementally between similar, or related images, supplied as canvases in a IIIF manifest.
+Specific regions of interest are expected to be defined as a _Range_ of _FragmentSelector_ _SpecificResource_ items, e.g [IIIF Presentation API 3.0](https://iiif.io/api/presentation/3.0/#b-example-manifest-response)
+(The Compariscope editor, below, can assist with preparing region of interest paramaters)
 
 
 ## [The Compariscope](https://vanda.github.io/iiif-features/compariscope.html)
@@ -19,7 +22,12 @@ A prototype viewer for interacting with stop-motion image sets, such as Edweard 
 **Drag** the image!
 
 
-## [Perspective viewer](https://vanda.github.io/iiif-features/perspectiveViewer.html)
+## [Parallax viewer](https://vanda.github.io/iiif-features/parallaxViewer.html)
 A prototype viewer for interacting with image sets aproximating 3D scenes, using layers in parallax, such as the many [Peep shows](https://collections.vam.ac.uk/item/O1141038/an-artists-studio-print-engelbrecht-martin) in the V&A's collection.
 
 **Scroll in/out and move** over the viewer!
+
+
+## [Image tester](https://vanda.github.io/iiif-features/openSeadragon.html)
+A basic instance of OpenSeadragon to test a IIIF image info.json, passed via the querystring
+

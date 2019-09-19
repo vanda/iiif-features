@@ -125,26 +125,38 @@ addHandler(window,'resize',function(){
 });
 
 const qstr = new Map(location.search.slice(1).split('&').map(kv => kv.split('=')));
-let m = 'https://iiif.vam.ac.uk/demos/muybridge/manifest.json';
+let m = 'img/manifest_muybridge.json';
 
 if (!qstr.has('manifest')) {
   document.location.search = 'manifest=' + m;
 } else {
   m = qstr.get('manifest');
 }
+
 manifesto.loadManifest(m).then((manifest) => {
   flicker.innerHTML = '';
   const mf = manifesto.create(manifest);
-  const cvs = mf.getSequences()[0].getCanvases();
-  Array.from(cvs, (cv) => {
-    const im = flicker.appendChild(document.createElement('img'));
-    if (cv.getImages().length) {
-      im.src = cv.getImages()[0].getResource().id;
-    } else if (cv.getContent().length) {
-      im.src = cv.getContent()[0].getBody()[0].id;
-    }
-    painter.init(flicker, {'loop':1, 'fade':0});
-  });
+
+  if (!mf.context.includes('http://iiif.io/api/presentation/3/context.json')) {
+    alert("Please provide a P3 manifest with the region of each frame as Fragment Selectors.");
+  } else {
+    const stack = mf.getAllRanges().find((range) => {
+      return range.__jsonld.behavior.includes('superimpose-regions');
+    });
+    Array.from(stack.__jsonld.items, (item) => {
+      const cv = mf.getSequences()[0].getCanvasById(item.source);
+      const region = item.selector.value.slice(5);
+      const imgEl = flicker.appendChild(document.createElement('img'));
+      let imgSrc = `${cv.getContent()[0].getBody()[0].id}.jpg`;
+      let  imgSrcset = '';
+      for (let size of [320, 640, 960, 1200, 1920]){
+        imgSrcset += imgSrc.replace('full/full', `${region}/${size},`) + ` ${size}w, `;
+      }
+      imgEl.srcset = imgSrcset;
+      imgEl.src = imgSrc.replace('full/full', `${region}/960,`);
+      painter.init(flicker, {'loop':1, 'fade':0});
+    });
+  }
 });
 
 

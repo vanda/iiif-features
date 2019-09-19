@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  <meta name="web_author" content="Luca Carini, 2017, l.carini@vam.ac.uk" />
+  <title>iiifLayerStack</title>
+  <style type="text/css">
+    html, body { height: 100%; margin: 0; }
+    body { background: #fff; font: 14px/1 helvetica,arial,freesans,sans-serif; padding: 20px; }
+    .iiifLayerStack { box-shadow: 0 0 3px #fff; height: 100%; width: 100%; }
+    .iiifLayerStack-osd { height: 80%; width: 100%; }
+    .iiifLayerStack-dash { background: #fff; font-size: 14px; width: calc(100% - 20px); margin: 20px auto 40px; max-width: 800px; padding: 10px; }
+    .iiifLayerStack-fader, .iiifLayerStack-key { width: 100%; }
+    .iiifLayerStack-fader { -webkit-appearance: none; background: #000; border: solid #fff; border-width: 10px 0; height: 4px; position: relative; z-index: 1; }
+    .iiifLayerStack-key { color: #000; font-weight: 800; height: 20px; margin-top: -10px; position: relative; }
+    .iiifLayerStack-keyline { border-right: 1px solid #000; box-sizing: border-box; padding: 12px 4px 2px 0; position: absolute; text-align: right; }
+    .iiifLayerStack-keyline:first-child, .iiifLayerStack-keyline:last-child { border: none; }
+    .iiifLayerStack-keyline:first-child { border: none; padding: 12px 0 0 4px; }
+    .iiifLayerStack-labels { border-top: 1px solid #fff; color: #000; padding: 34px 4px 10px; }
+    .iiifLayerStack-label { cursor: pointer; display: flex; margin: 0 0 20px; }
+    .iiifLayerStack-labelkey { font-weight: 800; }
+    .iiifLayerStack-labeltext { margin-left: 10px; text-align: justify; }
+  </style>
+</head>
+
+<body>
+
+<div class="iiifLayerStack js-iiifLayerStack"></div>
+
+<script src="img/manifesto.bundle.js"></script>
+<script src="img/openseadragon.min.js"></script>
+<script type="text/javascript">
+const iiifLayerStack = {
+  id: 0,
+  init: (el) => {
+    iiifLayerStack.id += 1;
+    const osd = document.createElement('div');
+    osd.id = `iiifLayerStack${iiifLayerStack.id}`;
+    osd.className = 'iiifLayerStack-osd';
+    el.appendChild(osd);
+
+    el.osd = OpenSeadragon({
+      id: `iiifLayerStack${iiifLayerStack.id}`,
+      showNavigationControl: false
+    });
+
+    el.stackHeight = 0;
+
+    const dash = document.createElement('div');
+    dash.className = 'iiifLayerStack-dash';
+    el.appendChild(dash);
+
+    el.fader = document.createElement('input');
+    el.fader.className = 'iiifLayerStack-fader';
+    el.fader.type = 'range';
+    el.fader.min = 1.00001;
+    el.fader.step = 0.005;
+    el.fader.viewer = el;
+    el.fader.oninput = (e) => { 
+      window.requestAnimationFrame(() => {
+        iiifLayerStack.fade(el, e.target.value);
+      });
+    };
+    dash.appendChild(el.fader);
+
+    el.key = document.createElement('div');
+    el.key.className = 'iiifLayerStack-key';
+    dash.appendChild(el.key);
+
+    el.labels = document.createElement('div');
+    el.labels.className = 'iiifLayerStack-labels';
+    dash.appendChild(el.labels);
+
+    /* wip - attempt to add edit mode */
+    //~ if (edit) {
+      //~ el.osd.addHandler('canvas-press', (data) => {
+        //~ const layer = el.osd.world.getItemAt(0);
+        //~ const dragStart = data.position;
+        //~ const layerStart = layer.getBounds();
+        //~ data.tracker.dragHandler = (e) => {
+          //~ window.requestAnimationFrame(function(){
+            //~ layer.setPosition(layer.imageToViewportCoordinates(
+              //~ layerStart.x + e.position.x - dragStart.x, layerStart.y + e.position.y - dragStart.y
+            //~ ), true);
+          //~ });
+        //~ };
+      //~ });
+    //~ }
+
+    return el;
+  },
+  addItem: (el, osdArgs, label) => {
+    el.osd.addTiledImage(osdArgs);
+    el.stackHeight += 1;
+    el.fader.max = el.stackHeight;
+    el.fader.value = el.fader.max;
+    iiifLayerStack.key(el, label);
+  },
+  fade: (el, x) => {
+    el.fader.value = x;
+    const bgLayer = Math.floor(x);
+    const opacity = x - bgLayer;
+    for (let i = el.stackHeight; i > 0; i--) {
+      if (i > bgLayer + 1 ) {
+        el.osd.world.getItemAt(i-1).setOpacity(0);
+      } else if (i === bgLayer + 1) {
+        el.osd.world.getItemAt(i-1).setOpacity(opacity);
+      } else {
+        el.osd.world.getItemAt(i-1).setOpacity(1);
+      }
+    }
+  },
+  key: (el, label) => {
+    el.key.innerHTML = '';
+    for (let i = 0; i < el.stackHeight; ++i) {
+      el.key.innerHTML += `
+        <div class="iiifLayerStack-keyline" style="width:${i*100/(el.stackHeight-1)}%">${i+1}</div>
+      `;
+    }
+    el.labels.innerHTML += `
+      <div class="iiifLayerStack-label" data-layerstack-layer="${el.stackHeight}">
+        <div class="iiifLayerStack-labelkey">${el.stackHeight}</div>
+        <div class="iiifLayerStack-labeltext">${label}</div>
+      </div>
+    `;
+    document.addEventListener('click', (e) => {
+      if (e.target.closest('.iiifLayerStack-label')) {
+        iiifLayerStack.fade(el, e.target.closest('.iiifLayerStack-label').dataset.layerstackLayer)
+      }
+    }, false);
+  }
+};
+
+
+const qstr = new Map(location.search.slice(1).split('&').map(kv => kv.split('=')));
+//~ let m = 'img/manifest_raphael_scan.json';
+//~ let m = 'img/manifest_raphael_tapestry.json';
+//~ let m = 'img/manifest_360.json';
+//~ let m = 'img/manifest_multispectral.json';
+let m = 'img/manifest_constable.json';
+
+if (!qstr.has('manifest')) {
+  document.location.search = 'manifest=' + m;
+} else {
+  m = qstr.get('manifest');
+}
+
+manifesto.loadManifest(m).then((manifest) => {
+  const viewer = iiifLayerStack.init(document.querySelector('.js-iiifLayerStack'));
+  let mf = null;
+  try {
+   mf = manifesto.create(manifest);
+  } catch {
+    alert("Invalid manifest");
+    return false;
+  }
+  let i = 0;
+  let vwScaler = null;
+  let layers = null;
+
+  /* P2 manifest, else P3 */
+  if (!mf.context.includes('http://iiif.io/api/presentation/3/context.json')) {
+    console.log("Note! Any specific alignment of layers can be supplied as regions in Fragment Selectors in a P3 manifest.");
+    layers = Array.from(mf.getSequences()[0].getCanvases(), (item) => {
+      return { canvas: item }
+    });
+  } else {
+    const stack = mf.getAllRanges().find((range) => {
+      return range.__jsonld.behavior.includes('superimpose-regions');
+    });
+    if (!stack) {
+      alert("Please provide alignment regions as Fragment Selectors in a P3 manifest.");
+      return false;
+    }
+    layers = Array.from(stack.__jsonld.items, (item) => {
+      return {
+        canvas: mf.getSequences()[0].getCanvasById(item.source),
+        region: item.selector.value
+      }
+    });
+  }
+
+  Array.from(layers, (layer) => {
+    const osdArgs = {};
+    let img = null;
+    let region = null;
+    let viewWidth = null;
+
+    /* P2 manifest, else P3 */
+    if (!mf.context.includes('http://iiif.io/api/presentation/3/context.json')) {
+      img = layer.canvas.getImages()[0].getResource().getServices()[0].id;
+    } else {
+      img = layer.canvas.getContent()[0].getBody()[0].getServices()[0].id;
+      region = layer.region.slice(9).split(',');
+    }
+
+    osdArgs.tileSource = `${img}/info.json`;
+    if (region) {
+      i += 1;
+      if (i === 1) {
+        viewWidth = 1;
+        vwScaler = region[2];
+      } else {
+        viewWidth = vwScaler / region[2];
+      }
+      osdArgs.success = function (data) {
+        data.item.setWidth(viewWidth);
+        data.item.setPosition(
+          new OpenSeadragon.Point(
+            -(region[0] / 100) * data.item.getBounds().width, 
+            -(region[1]  / 100) * data.item.getBounds().height
+          )
+        );
+        if (data.item.viewer.world.getItemCount() === 1) {
+          //~ data.item.viewport.zoomTo(100 / region[2]);
+          data.item.viewport.panTo(
+            new OpenSeadragon.Point(
+              (region[0] / 100) + (region[2] / 200),
+              ((region[1] / 100) + (region[3] / 200)) 
+              * data.item.getBounds().height / data.item.getBounds().width)
+          );
+        }
+      };
+    }
+    iiifLayerStack.addItem(viewer, osdArgs, layer.canvas.getLabel()[0].value);
+  });
+});
+</script>
+</body>
+</html>
