@@ -30,8 +30,10 @@
     .cs-btn.active { background:#bbb; }
     #cs-iiif-src { border:0; box-sizing:border-box; display:inline-block; padding:4px; height:24px; width:calc(100% - 164px); text-align:right; }
     #cs-fader, #cs-range { width:100%; }
-    #cs-range { background:#fff; }
-    #cs-range div { border-right:1px solid #fff; box-sizing:border-box; color:#fff; float:left; font-weight:600; padding-right:4px; text-align:right; }
+    #cs-range { color:#fff; font-weight:800; height:16px; margin:0; position:relative; }
+    #cs-range div { border-right:1px solid currentColor; box-sizing:border-box; padding:2px 4px 10px 0; position:absolute; text-align:right; }
+    #cs-range div:first-child, #cs-range div:last-child { border:none; }
+    #cs-range div:last-child { padding-right:0; }
     #cs-mode { width:6em; z-index:1; }
     #cs-mode::after { content:'Preview'; }
     .cs-preview #cs-mode { position:fixed; right:5%; top:5%; }
@@ -54,7 +56,7 @@
   <div id="cs-editor"></div>
   <div class="cs-ctrl">
     <div id="cs-range"></div>
-    <input type="range" id="cs-fader" value="1" max="1" step=".01">
+    <input type="range" id="cs-fader" value="1" min="1.00001" max="1" step=".005">
   </div>
   <div class="cs-ctrl">
     <input id="cs-iiif-src">
@@ -108,27 +110,33 @@
   }
 
   compariscope.fade = function(x){
-    var arcs = this.imgs.length,
-      vis = Math.ceil(x*arcs),
-      opacity = (x%(1/arcs))*arcs;
-    this.index = vis-1;
-    if( (opacity===0 && x>0) || (x===1 && opacity!==1) ) opacity = 1;
-    this.css.innerHTML = ' \
-      #'+this.id+' :nth-child(-n+'+vis+'){ opacity:1 } \
-      #'+this.id+' :nth-child(n+'+(vis+1)+'){ opacity:0; z-index:-999 } \
-      #'+this.id+' :nth-child('+vis+'){ opacity:'+opacity+' } \
-      ';
-    if(vis>0) imgSrc.value = this.imgs[vis-1].src;
     fader.value = x;
+    var arcs = this.imgs.length,
+      bgLayer = Math.floor(x),
+      opacity = x - bgLayer;
+    this.css.innerHTML = ' \
+      #'+this.id+' :nth-child('+bgLayer+'){ opacity:1 } \
+      #'+this.id+' :nth-child('+(bgLayer+1)+'){ opacity:'+opacity+' } \
+      #'+this.id+' :nth-child(n+'+(bgLayer+2)+'){ opacity:0; z-index:-999 } \
+      ';
+    if (x == fader.min) {
+      this.index = 1;
+    } else if (x == fader.max) {
+      this.index = bgLayer;
+    } else {
+      this.index = bgLayer + 1;
+    } console.log(this.index);
+    imgSrc.value = this.imgs[(this.index - 1)].src;
   }
 
   compariscope.range = function(){
     var arcs = this.imgs.length,
       rangeHTML = '';
-    for( i=1; i<=arcs; ++i ){
-      rangeHTML += '<div style="width:'+(100/arcs)+'%">'+i+'</div>';
+    for( i = 0; i < arcs; ++i ){
+      rangeHTML += '<div style="width:'+(i*100/(arcs-1))+'%">'+(i+1)+'</div>';
     }
     range.innerHTML = rangeHTML;
+    fader.max = arcs;
   }
 
   compariscope.onmousedown = function(e){ 
@@ -194,26 +202,26 @@
         }
         dragZoom.init(img, {'zoom':1, 'siblings':compariscope.imgs});
       }, 0);
-      compariscope.fade(1);
+      compariscope.fade(compariscope.imgs.length);
     }
     compariscope.imgs.push(img);
     compariscope.range();
   };
 
   imgShift.onclick = function(e){
-    var i = compariscope.index,
+    if (compariscope.index===compariscope.imgs.length) return;
+    var i = compariscope.index - 1,
       img = compariscope.imgs[i];
-    if( i===compariscope.imgs.length-1 ) return;
     compariscope.imgs[i] = img.nextSibling;
     compariscope.imgs[i+1] = img;
     compariscope.insertBefore(img.nextSibling, img);
-    compariscope.fade(parseFloat(fader.value) + (1/compariscope.imgs.length));
+    compariscope.fade(parseFloat(fader.value) + 1);
   };
 
   imgRemove.onclick = function(e){
     var i = compariscope.index;
     compariscope.removeChild(compariscope.imgs[i]);
-    compariscope.fade(1);
+    compariscope.fade(compariscope.imgs.length);
     compariscope.imgs.splice(i, 1);
     compariscope.range();
   };
