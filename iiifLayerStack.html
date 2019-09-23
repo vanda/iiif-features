@@ -102,7 +102,7 @@ const iiifLayerStack = {
   fade: (el, x) => {
     el.fader.value = x;
     const bgLayer = Math.floor(x);
-    const opacity = x - bgLayer;
+    const opacity = (el.nofade) ? 0 : x - bgLayer;
     for (let i = el.stackHeight; i > 0; i--) {
       if (i > bgLayer + 1 ) {
         el.osd.world.getItemAt(i-1).setOpacity(0);
@@ -226,6 +226,10 @@ manifesto.loadManifest(m).then((manifest) => {
     }
     iiifLayerStack.addItem(viewer, osdArgs, layer.canvas.getLabel()[0].value);
   });
+
+  if (qstr.has('nofade')) {
+    viewer.nofade = true;
+  }
 });
 </script>
 </body>
