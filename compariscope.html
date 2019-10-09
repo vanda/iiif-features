@@ -126,7 +126,9 @@
     } else {
       this.index = bgLayer + 1;
     }
-    imgSrc.value = this.imgs[(this.index - 1)].src;
+    if (this.index > 0) {
+      imgSrc.value = this.imgs[(this.index - 1)].src;
+    }
   }
 
   compariscope.range = function(){
@@ -176,9 +178,9 @@
     const img = document.createElement('img');
     let region = null;
     let source = imgSrc.value;
-    if (imgSrc.value.indexOf('?') > 0) {
-      region = imgSrc.value.slice(imgSrc.value.indexOf('?') + 10).split(',');
-      source = source.substring(0, imgSrc.value.indexOf('?'));
+    if (imgSrc.value.indexOf('?xywh') > 0) {
+      region = imgSrc.value.slice(imgSrc.value.indexOf('?xywh') + 10).split(',');
+      source = source.substring(0, imgSrc.value.indexOf('?xywh'));
     }
     img.src = source;
     compariscope.appendChild(img);
@@ -219,11 +221,11 @@
   };
 
   imgRemove.onclick = function(e){
-    var i = compariscope.index;
+    var i = compariscope.index - 1;
     compariscope.removeChild(compariscope.imgs[i]);
-    compariscope.fade(compariscope.imgs.length);
     compariscope.imgs.splice(i, 1);
     compariscope.range();
+    compariscope.fade(compariscope.imgs.length);
   };
 
   imgLock.onclick = function(e){
@@ -234,7 +236,7 @@
   };
 
   imgSnap.onclick = function(e){
-    var i = compariscope.index,
+    var i = compariscope.index - 1,
       img = compariscope.imgs[i],
       lock0 = img.lock;
     compariscope.style.width = img.wh[0]+'px'; compariscope.style.height = img.wh[1]+'px';
@@ -246,7 +248,7 @@
     if( !lock0 ) img.lock = 0;
   };
 
-  fader.oninput = function(e){ 
+  fader.oninput = function(e){
     window.requestAnimationFrame(function(){
       compariscope.fade(e.target.value);
     });
@@ -494,7 +496,13 @@
     let layers = null;
 
     if (!mf.context.includes('http://iiif.io/api/presentation/3/context.json')) {
-      alert("P3 manifests only please");
+      console.log("Note! Any specific alignment of layers should be supplied as regions in Fragment Selectors in a P3 manifest.");
+      layers = Array.from(mf.getSequences()[0].getCanvases(), (item) => {
+        return {
+          canvas: item.getImages()[0].getResource().id,
+          region: null
+        }
+      });
     } else {
       const stack = mf.getAllRanges().find((range) => {
         return range.__jsonld.behavior.includes('superimpose-regions');
@@ -503,13 +511,21 @@
         alert("Please provide alignment regions as Fragment Selectors in a P3 manifest.");
         return false;
       }
-      Array.from(stack.__jsonld.items, (item) => {
-        const img = mf.getSequences()[0].getCanvasById(item.source).getContent()[0].getBody()[0].id;
-        const region = item.selector.value;
-        imgSrc.value = `${img}.jpg?${region}`;
-        imgAdd.click();
+      layers = Array.from(stack.__jsonld.items, (item) => {
+        return {
+          canvas: mf.getSequences()[0].getCanvasById(item.source).getContent()[0].getBody()[0].id,
+          region: item.selector.value
+        }
       });
     }
+    Array.from(layers, (layer) => {
+      let src = encodeURI(layer.canvas);
+      if (layer.region) {
+        src += `.jpg?${layer.region}`;
+      }
+      imgSrc.value = src;
+      imgAdd.click();
+    });
   });
 
 })();
