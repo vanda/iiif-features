@@ -162,7 +162,7 @@ manifesto.loadManifest(m).then((manifest) => {
 
   /* P2 manifest, else P3 */
   if (!mf.context.includes('http://iiif.io/api/presentation/3/context.json')) {
-    console.log("Note! Any specific alignment of layers can be supplied as regions in Fragment Selectors in a P3 manifest.");
+    console.log("Note! Any specific alignment of layers should be supplied as regions in Fragment Selectors in a P3 manifest.");
     layers = Array.from(mf.getSequences()[0].getCanvases(), (item) => {
       return { canvas: item }
     });
