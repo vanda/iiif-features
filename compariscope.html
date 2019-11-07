@@ -321,16 +321,22 @@
         el.onmousemove = iFader.touch;
         el.ontouchmove = iFader.touch;
         el.fade = function(x){
-          x = 1-x;
-          var vis = Math.ceil(x*this.arcs)+1,
-            opacity = (x%(1/this.arcs))*this.arcs;
-          if( x===0 || (opacity===0 && x>0) || (x===1 && opacity!==1) ){ opacity = 1; }
+          var arcs = compariscope.imgs.length,
+            bgLayer = Math.floor(x),
+            opacity = x - bgLayer;
           this.css.innerHTML = ' \
-            #'+el.id+' :nth-child(-n+'+vis+'){ opacity:1 } \
-            #'+el.id+' :nth-child(n+'+(vis+1)+'){ opacity:0; z-index:-999 } \
-            #'+el.id+' :nth-child('+vis+'){ opacity:'+opacity+' } \
+            #'+this.id+' :nth-child('+bgLayer+'){ opacity:1 } \
+            #'+this.id+' :nth-child('+(bgLayer+1)+'){ opacity:'+opacity+' } \
+            #'+this.id+' :nth-child(n+'+(bgLayer+2)+'){ opacity:0; z-index:-999 } \
             ';
-          opURL.innerHTML = viewer.opURLs[Math.round(x*this.arcs+1)-1];
+          if (x < 1.1) {
+            this.index = 1;
+          } else if (x == fader.max) {
+            this.index = bgLayer;
+          } else {
+            this.index = bgLayer + 1;
+          }          
+          opURL.innerHTML = viewer.opURLs[(this.index - 1)];
         }
       }
     },
@@ -339,7 +345,7 @@
       if( !this.w ){ iFader.size(this); }
       var xyE = getXY(e);
       if( xyE[0]>this.x && xyE[0]<this.x+this.w){
-        this.fade((xyE[0]-this.x)/this.w);
+        this.fade(1 + ((fader.max - 1) * (xyE[0]-this.x)/this.w));
       }
     },
     uninit: function(el){
