@@ -113,11 +113,13 @@
     fader.value = x;
     var arcs = this.imgs.length,
       bgLayer = Math.floor(x),
-      opacity = x - bgLayer;
+      opacity = x - bgLayer,
+      transparency = 'opacity:'+ opacity;
+    if (opacity === 0) transparency = 'visibility:hidden';
     this.css.innerHTML = ' \
       #'+this.id+' :nth-child('+bgLayer+'){ opacity:1 } \
-      #'+this.id+' :nth-child('+(bgLayer+1)+'){ opacity:'+opacity+' } \
-      #'+this.id+' :nth-child(n+'+(bgLayer+2)+'){ opacity:0; z-index:-999 } \
+      #'+this.id+' :nth-child('+(bgLayer+1)+'){'+ transparency +'} \
+      #'+this.id+' :nth-child(n+'+(bgLayer+2)+'){ visibility:hidden } \
       ';
     if (x == fader.min) {
       this.index = 1;
@@ -323,11 +325,13 @@
         el.fade = function(x){
           var arcs = compariscope.imgs.length,
             bgLayer = Math.floor(x),
-            opacity = x - bgLayer;
+            opacity = x - bgLayer,
+            transparency = 'opacity:'+ opacity;
+          if (opacity === 0) transparency = 'visibility:hidden';
           this.css.innerHTML = ' \
             #'+this.id+' :nth-child('+bgLayer+'){ opacity:1 } \
-            #'+this.id+' :nth-child('+(bgLayer+1)+'){ opacity:'+opacity+' } \
-            #'+this.id+' :nth-child(n+'+(bgLayer+2)+'){ opacity:0; z-index:-999 } \
+            #'+this.id+' :nth-child('+(bgLayer+1)+'){'+ transparency +'} \
+            #'+this.id+' :nth-child(n+'+(bgLayer+2)+'){ visibility:hidden } \
             ';
           if (x < 1.1) {
             this.index = 1;
