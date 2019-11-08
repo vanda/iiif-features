@@ -171,6 +171,34 @@
   };
 
   window.onload = function(e){ imgSrc.focus(); }
+  
+  document.onclick = function(e){
+    if (e.target.closest('#cs-editor')) {
+      imgSrc.focus();
+      imgSrc.blur();
+    }
+  }
+
+  document.onkeydown = function(e){
+    if (e.key.indexOf('Arrow') === 0 && !e.target.matches('input')) {
+      e.preventDefault();
+      const el = compariscope.imgs[compariscope.index - 1];
+      switch (e.key) {
+        case 'ArrowUp':
+          el.moveBy([0, -1]);
+          break;
+        case 'ArrowDown':
+          el.moveBy([0, 1]);
+          break;
+        case 'ArrowLeft':
+          el.moveBy([-1, 0]);
+          break;
+        case 'ArrowRight':
+          el.moveBy([1, 0]);
+          break;
+      }
+    }
+  }
 
   imgAdd.onclick = function(e){
     if( imgSrc.value.indexOf('/full/full/') < 0 ){
