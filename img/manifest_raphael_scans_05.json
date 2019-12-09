@@ -231,7 +231,7 @@
           "source": "https://vanda.github.io/iiif-features/img/compariscope_manifest.json/canvas/3",
           "selector": {
             "type": "FragmentSelector",
-            "value": "xywh=pct:1.108,1.114,96.744,96.731"
+            "value": "xywh=pct:0,0,100,100"
           }
         },
         {
@@ -239,7 +239,7 @@
           "source": "https://vanda.github.io/iiif-features/img/compariscope_manifest.json/canvas/1",
           "selector": {
             "type": "FragmentSelector",
-            "value": "xywh=pct:1.108,1.114,96.744,96.731"
+            "value": "xywh=pct:0,0,100,100"
           }
         },
         {
@@ -247,7 +247,7 @@
           "source": "https://vanda.github.io/iiif-features/img/compariscope_manifest.json/canvas/2",
           "selector": {
             "type": "FragmentSelector",
-            "value": "xywh=pct:1.116,1.129,96.744,96.731"
+            "value": "xywh=pct:0,0,100,100"
           }
         } 
       ]

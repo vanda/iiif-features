@@ -67,8 +67,8 @@
           ""
         ]
       },
-      "width": 64678,
-      "height": 41439,
+      "width": 64838,
+      "height": 41363,
       "requiredStatement": {
         "label": {
           "en": [
@@ -94,8 +94,8 @@
                 "@id": "https://framemark-int.vam.ac.uk/demo/raphael2019/06_COLOUR_300ppi/full/full/0/default",
                 "type": "Image",
                 "format": "image/jpeg",
-                "width": 64678,
-                "height": 41439,
+                "width": 64838,
+                "height": 41363,
                 "service": {
                   "id": "https://framemark-int.vam.ac.uk/demo/raphael2019/06_COLOUR_300ppi",
                   "type": "ImageService2",
@@ -121,8 +121,8 @@
           ""
         ]
       },
-      "width": 64678,
-      "height": 41439,
+      "width": 64838,
+      "height": 41363,
       "requiredStatement": {
         "label": {
           "en": [
@@ -145,13 +145,13 @@
               "type": "Annotation",
               "motivation": "painting",
               "body": {
-                "@id": "https://framemark-int.vam.ac.uk/demo/raphael2019/06_IR_300ppi_2/full/full/0/default",
+                "@id": "https://framemark-int.vam.ac.uk/demo/raphael2019/06_IR_300ppi/full/full/0/default",
                 "type": "Image",
                 "format": "image/jpeg",
-                "width": 64678,
-                "height": 41439,
+                "width": 64838,
+                "height": 41363,
                 "service": {
-                  "id": "https://framemark-int.vam.ac.uk/demo/raphael2019/06_IR_300ppi_2",
+                  "id": "https://framemark-int.vam.ac.uk/demo/raphael2019/06_IR_300ppi",
                   "type": "ImageService2",
                   "profile": "level1"
                 }
@@ -175,8 +175,8 @@
           ""
         ]
       },
-      "width": 64678,
-      "height": 41439,
+      "width": 64838,
+      "height": 41363,
       "requiredStatement": {
         "label": {
           "en": [
@@ -202,8 +202,8 @@
                 "@id": "https://framemark-int.vam.ac.uk/demo/raphael2019/06_3D_300ppi/full/full/0/default",
                 "type": "Image",
                 "format": "image/jpeg",
-                "width": 64678,
-                "height": 41439,
+                "width": 64838,
+                "height": 41363,
                 "service": {
                   "id": "https://framemark-int.vam.ac.uk/demo/raphael2019/06_3D_300ppi",
                   "type": "ImageService2",
@@ -231,7 +231,7 @@
           "source": "https://vanda.github.io/iiif-features/img/compariscope_manifest.json/canvas/3",
           "selector": {
             "type": "FragmentSelector",
-            "value": "xywh=pct:1.108,1.114,96.744,96.731"
+            "value": "xywh=pct:0,0,100,100"
           }
         },
         {
@@ -239,7 +239,7 @@
           "source": "https://vanda.github.io/iiif-features/img/compariscope_manifest.json/canvas/1",
           "selector": {
             "type": "FragmentSelector",
-            "value": "xywh=pct:1.108,1.114,96.744,96.731"
+            "value": "xywh=pct:0,0,100,100"
           }
         },
         {
@@ -247,7 +247,7 @@
           "source": "https://vanda.github.io/iiif-features/img/compariscope_manifest.json/canvas/2",
           "selector": {
             "type": "FragmentSelector",
-            "value": "xywh=pct:1.116,1.129,96.744,96.731"
+            "value": "xywh=pct:0,0,100,100"
           }
         } 
       ]
