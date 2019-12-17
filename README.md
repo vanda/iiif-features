@@ -4,7 +4,7 @@ from [The Victoria and Albert Museum](vam.ac.uk)
 
 
 ## [Layer Stack](https://vanda.github.io/iiif-features/iiifLayerStack.html)
-A viewer for stacking IIIF images, in superimposition, to examine differences incrementally between similar, or related images, supplied as canvases in a IIIF manifest.
+A viewer based on OpenSeaDragon for stacking IIIF images, in superimposition, to examine differences incrementally between similar, or related images, supplied as canvases in a IIIF manifest.
 Specific regions of interest are expected to be defined as a _Range_ of _FragmentSelector_ _SpecificResource_ items, e.g [IIIF Presentation API 3.0](https://iiif.io/api/presentation/3.0/#b-example-manifest-response)
 (The Compariscope editor, below, can assist with preparing region of interest paramaters)
 
