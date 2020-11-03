@@ -199,13 +199,13 @@
               "type": "Annotation",
               "motivation": "painting",
               "body": {
-                "@id": "https://images.britishart.yale.edu/iiif/745550dc-83ed-4a23-8dab-fde3532741f9/full/full/0/native",
+                "@id": "https://images.britishart.yale.edu/iiif/6e961789-58ac-49de-a51e-5c7f268c7f5f/full/full/0/native",
                 "type": "Image",
                 "format": "image/jpeg",
                 "width": 7125,
                 "height": 5263,
                 "service": {
-                  "id": "https://images.britishart.yale.edu/iiif/745550dc-83ed-4a23-8dab-fde3532741f9",
+                  "id": "https://images.britishart.yale.edu/iiif/6e961789-58ac-49de-a51e-5c7f268c7f5f",
                   "type": "ImageService2",
                   "profile": "level1"
                 }
