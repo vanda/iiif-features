@@ -30,6 +30,7 @@
     .cs-btn.active { background:#bbb; }
     #cs-iiif-src { border:0; box-sizing:border-box; display:inline-block; padding:4px; height:24px; width:calc(100% - 164px); text-align:right; }
     #cs-fader, #cs-range { width:100%; }
+    #cs-fader { position:relative; z-index:1; }
     #cs-range { color:#fff; font-weight:800; height:16px; margin:0; position:relative; }
     #cs-range div { border-right:1px solid currentColor; box-sizing:border-box; padding:2px 4px 10px 0; position:absolute; text-align:right; }
     #cs-range div:first-child, #cs-range div:last-child { border:none; }
@@ -551,14 +552,14 @@
       layers = Array.from(stack.__jsonld.items, (item) => {
         return {
           canvas: mf.getSequences()[0].getCanvasById(item.source).getContent()[0].getBody()[0].id,
-          region: item.selector.value
+          region: item.selector.region
         }
       });
     }
     Array.from(layers, (layer) => {
       let src = encodeURI(layer.canvas);
       if (layer.region) {
-        src += `.jpg?${layer.region}`;
+        src += `?xywh=${layer.region}`;
       }
       imgSrc.value = src;
       imgAdd.click();

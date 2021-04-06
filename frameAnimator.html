@@ -145,7 +145,7 @@ manifesto.loadManifest(m).then((manifest) => {
     });
     Array.from(stack.__jsonld.items, (item) => {
       const cv = mf.getSequences()[0].getCanvasById(item.source);
-      const region = item.selector.value.slice(5);
+      const region = item.selector.region;
       const imgEl = flicker.appendChild(document.createElement('img'));
       let imgSrc = `${cv.getContent()[0].getBody()[0].id}.jpg`;
       let  imgSrcset = '';

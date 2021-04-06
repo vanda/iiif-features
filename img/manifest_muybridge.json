@@ -106,128 +106,128 @@
           "type": "SpecificResource",
           "source": "https://vanda.github.io/iiif-features/img/compariscope_manifest.json/canvas/1",
           "selector": {
-            "type": "FragmentSelector",
-            "value": "xywh=pct:69.002,71.129,20.741,20.739"
+            "type": "ImageApiSelector",
+            "region": "pct:69.002,71.129,20.741,20.739"
           }
         },
         {
           "type": "SpecificResource",
           "source": "https://vanda.github.io/iiif-features/img/compariscope_manifest.json/canvas/1",
           "selector": {
-            "type": "FragmentSelector",
-            "value": "xywh=pct:48.881,71.303,20.553,20.552"
+            "type": "ImageApiSelector",
+            "region": "pct:48.881,71.303,20.553,20.552"
           }
         },
         {
           "type": "SpecificResource",
           "source": "https://vanda.github.io/iiif-features/img/compariscope_manifest.json/canvas/1",
           "selector": {
-            "type": "FragmentSelector",
-            "value": "xywh=pct:28.749,71.221,20.685,20.689"
+            "type": "ImageApiSelector",
+            "region": "pct:28.749,71.221,20.685,20.689"
           }
         },
         {
           "type": "SpecificResource",
           "source": "https://vanda.github.io/iiif-features/img/compariscope_manifest.json/canvas/1",
           "selector": {
-            "type": "FragmentSelector",
-            "value": "xywh=pct:8.835,71.046,20.863,20.861"
+            "type": "ImageApiSelector",
+            "region": "pct:8.835,71.046,20.863,20.861"
           }
         },
         {
           "type": "SpecificResource",
           "source": "https://vanda.github.io/iiif-features/img/compariscope_manifest.json/canvas/1",
           "selector": {
-            "type": "FragmentSelector",
-            "value": "xywh=pct:69.178,49.946,20.703,20.705"
+            "type": "ImageApiSelector",
+            "region": "pct:69.178,49.946,20.703,20.705"
           }
         },
         {
           "type": "SpecificResource",
           "source": "https://vanda.github.io/iiif-features/img/compariscope_manifest.json/canvas/1",
           "selector": {
-            "type": "FragmentSelector",
-            "value": "xywh=pct:49.587,50.046,20.583,20.579"
+            "type": "ImageApiSelector",
+            "region": "pct:49.587,50.046,20.583,20.579"
           }
         },
         {
           "type": "SpecificResource",
           "source": "https://vanda.github.io/iiif-features/img/compariscope_manifest.json/canvas/1",
           "selector": {
-            "type": "FragmentSelector",
-            "value": "xywh=pct:29.59,49.959,20.789,20.789"
+            "type": "ImageApiSelector",
+            "region": "pct:29.59,49.959,20.789,20.789"
           }
         },
         {
           "type": "SpecificResource",
           "source": "https://vanda.github.io/iiif-features/img/compariscope_manifest.json/canvas/1",
           "selector": {
-            "type": "FragmentSelector",
-            "value": "xywh=pct:9.554,49.912,20.894,20.895"
+            "type": "ImageApiSelector",
+            "region": "pct:9.554,49.912,20.894,20.895"
           }
         },
         {
           "type": "SpecificResource",
           "source": "https://vanda.github.io/iiif-features/img/compariscope_manifest.json/canvas/1",
           "selector": {
-            "type": "FragmentSelector",
-            "value": "xywh=pct:69.577,28.955,20.789,20.789"
+            "type": "ImageApiSelector",
+            "region": "pct:69.577,28.955,20.789,20.789"
           }
         },
         {
           "type": "SpecificResource",
           "source": "https://vanda.github.io/iiif-features/img/compariscope_manifest.json/canvas/1",
           "selector": {
-            "type": "FragmentSelector",
-            "value": "xywh=pct:49.502,28.937,20.832,20.833"
+            "type": "ImageApiSelector",
+            "region": "pct:49.502,28.937,20.832,20.833"
           }
         },
         {
           "type": "SpecificResource",
           "source": "https://vanda.github.io/iiif-features/img/compariscope_manifest.json/canvas/1",
           "selector": {
-            "type": "FragmentSelector",
-            "value": "xywh=pct:29.414,29.013,20.694,20.694"
+            "type": "ImageApiSelector",
+            "region": "pct:29.414,29.013,20.694,20.694"
           }
         },
         {
           "type": "SpecificResource",
           "source": "https://vanda.github.io/iiif-features/img/compariscope_manifest.json/canvas/1",
           "selector": {
-            "type": "FragmentSelector",
-            "value": "xywh=pct:10.027,28.911,20.832,20.828"
+            "type": "ImageApiSelector",
+            "region": "pct:10.027,28.911,20.832,20.828"
           }
         },
         {
           "type": "SpecificResource",
           "source": "https://vanda.github.io/iiif-features/img/compariscope_manifest.json/canvas/1",
           "selector": {
-            "type": "FragmentSelector",
-            "value": "xywh=pct:70.07,7.809,20.955,20.952"
+            "type": "ImageApiSelector",
+            "region": "pct:70.07,7.809,20.955,20.952"
           }
         },
         {
           "type": "SpecificResource",
           "source": "https://vanda.github.io/iiif-features/img/compariscope_manifest.json/canvas/1",
           "selector": {
-            "type": "FragmentSelector",
-            "value": "xywh=pct:50.036,8.004,20.651,20.65"
+            "type": "ImageApiSelector",
+            "region": "pct:50.036,8.004,20.651,20.65"
           }
         },
         {
           "type": "SpecificResource",
           "source": "https://vanda.github.io/iiif-features/img/compariscope_manifest.json/canvas/1",
           "selector": {
-            "type": "FragmentSelector",
-            "value": "xywh=pct:30.212,8.124,20.364,20.363"
+            "type": "ImageApiSelector",
+            "region": "pct:30.212,8.124,20.364,20.363"
           }
         },
         {
           "type": "SpecificResource",
           "source": "https://vanda.github.io/iiif-features/img/compariscope_manifest.json/canvas/1",
           "selector": {
-            "type": "FragmentSelector",
-            "value": "xywh=pct:10.366,8.156,20.347,20.347"
+            "type": "ImageApiSelector",
+            "region": "pct:10.366,8.156,20.347,20.347"
           }
         }
       ]

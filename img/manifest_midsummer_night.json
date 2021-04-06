@@ -393,48 +393,48 @@
           "type": "SpecificResource",
           "source": "https://vanda.github.io/iiif-features/img/manifest.json/canvas/1",
           "selector": {
-            "type": "FragmentSelector",
-            "value": "xywh=pct:19.659,14.839,63.134,62.828"
+            "type": "ImageApiSelector",
+            "region": "pct:19.659,14.839,63.134,62.828"
           }
         },
         {
           "type": "SpecificResource",
           "source": "https://vanda.github.io/iiif-features/img/manifest.json/canvas/2",
           "selector": {
-            "type": "FragmentSelector",
-            "value": "xywh=pct:20.311,16.238,62.084,61.833"
+            "type": "ImageApiSelector",
+            "region": "pct:20.311,16.238,62.084,61.833"
           }
         },
         {
           "type": "SpecificResource",
           "source": "https://vanda.github.io/iiif-features/img/manifest.json/canvas/3",
           "selector": {
-            "type": "FragmentSelector",
-            "value": "xywh=pct:19.867,15.968,63.134,62.828"
+            "type": "ImageApiSelector",
+            "region": "pct:19.867,15.968,63.134,62.828"
           }
         },
         {
           "type": "SpecificResource",
           "source": "https://vanda.github.io/iiif-features/img/manifest.json/canvas/4",
           "selector": {
-            "type": "FragmentSelector",
-            "value": "xywh=pct:19.774,16.159,63.134,62.828"
+            "type": "ImageApiSelector",
+            "region": "pct:19.774,16.159,63.134,62.828"
           }
         },
         {
           "type": "SpecificResource",
           "source": "https://vanda.github.io/iiif-features/img/manifest.json/canvas/5",
           "selector": {
-            "type": "FragmentSelector",
-            "value": "xywh=pct:19.331,16.105,63.134,62.828"
+            "type": "ImageApiSelector",
+            "region": "pct:19.331,16.105,63.134,62.828"
           }
         },
         {
           "type": "SpecificResource",
           "source": "https://vanda.github.io/iiif-features/img/manifest.json/canvas/6",
           "selector": {
-            "type": "FragmentSelector",
-            "value": "xywh=pct:19.331,16.14,63.134,62.828"
+            "type": "ImageApiSelector",
+            "region": "pct:19.331,16.14,63.134,62.828"
           }
         }
       ]

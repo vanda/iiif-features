@@ -230,24 +230,24 @@
           "type": "SpecificResource",
           "source": "https://vanda.github.io/iiif-features/img/compariscope_manifest.json/canvas/1",
           "selector": {
-            "type": "FragmentSelector",
-            "value": "xywh=pct:13.287,0.266,75.425,84.288"
+            "type": "ImageApiSelector",
+            "region": "pct:13.287,0.266,75.425,84.288"
           }
         },
         {
           "type": "SpecificResource",
           "source": "https://vanda.github.io/iiif-features/img/compariscope_manifest.json/canvas/2",
           "selector": {
-            "type": "FragmentSelector",
-            "value": "xywh=pct:2.099,1.954,97.169,94.619"
+            "type": "ImageApiSelector",
+            "region": "pct:2.099,1.954,97.169,94.619"
           }
         },
         {
           "type": "SpecificResource",
           "source": "https://vanda.github.io/iiif-features/img/compariscope_manifest.json/canvas/3",
           "selector": {
-            "type": "FragmentSelector",
-            "value": "xywh=pct:0.697,11.753,75.425,85.541"
+            "type": "ImageApiSelector",
+            "region": "pct:0.697,11.753,75.425,85.541"
           }
         }  
       ]

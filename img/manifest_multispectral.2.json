@@ -176,16 +176,16 @@
           "type": "SpecificResource",
           "source": "https://vanda.github.io/iiif-features/img/manifest.json/canvas/2",
           "selector": {
-            "type": "FragmentSelector",
-            "value": "xywh=pct:7.043,7.689,84.699,82.452"
+            "type": "ImageApiSelector",
+            "region": "pct:7.043,7.689,84.699,82.452"
           }
         },
         {
           "type": "SpecificResource",
           "source": "https://vanda.github.io/iiif-features/img/manifest.json/canvas/1",
           "selector": {
-            "type": "FragmentSelector",
-            "value": "xywh=pct:3.529,4.534,91.176,92.317"
+            "type": "ImageApiSelector",
+            "region": "pct:3.529,4.534,91.176,92.317"
           }
         }
       ]
