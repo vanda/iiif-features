@@ -286,7 +286,8 @@
 
   mode.onclick = function(e){
     var img, i,
-      html = sizes = region = '', srcset, src,
+      region = {},
+      html = sizes = regionQry = srcset = src = '',
       duo = compariscope.imgs.length===2,
       variants = [320, 640, 960, 1280, 1920], v,
       variant1 = duo? '960' : '1920';
@@ -299,16 +300,21 @@
         alert('Layer '+ (i+1) +' is under-cropped!');
         return;
       }
-      region = 'pct:'+Number(Math.round((-100*img.xy[0]/img.wh[0])+"e+3")+"e-3")+','+Number(Math.round((-100*img.xy[1]/img.wh[1])+"e+3")+"e-3")+','+Number(Math.round((100*img.whP[0]/img.wh[0])+"e+3")+"e-3")+','+Number(Math.round((100*img.whP[1]/img.wh[1])+"e+3")+"e-3");
-      src = img.src.replace('full/full/', region+'/full/');
+      region.x = Number(Math.round((-100*img.xy[0]/img.wh[0])+"e+3")+"e-3");
+      region.y = Number(Math.round((-100*img.xy[1]/img.wh[1])+"e+3")+"e-3");
+      region.w = Number(Math.round((100*img.whP[0]/img.wh[0])+"e+3")+"e-3");
+      region.h = Number(Math.round((100*img.whP[1]/img.wh[1])+"e+3")+"e-3");
+      regionQry = 'pct:'+region.x+','+region.y+','+region.w+','+region.h;
+      src = img.src.replace('full/full/', regionQry+'/full/');
       for( v=0; v<variants.length; ++v ){
         if( v>0 ) srcset += ', ';
         srcset += (src.replace('full', variants[v]+',') + ' '+variants[v]+'w');
       }
-      viewer.opURLs.push(region);
+      viewer.opURLs.push(regionQry);
       src = src.replace('full', variant1+',');
       html += '<img src="'+src+'" srcset="'+srcset+'" sizes="'+sizes+'">';
     }
+    console.log(viewer.opURLs);
     viewer.innerHTML = html;
     viewer.classList.remove('cs-split');
     viewer.classList.remove('cs-unsplit');
@@ -471,7 +477,7 @@
           dragZoom.el.ontouchend = null;
           dragZoom.release();
         };
-      }else{
+      } else {
         if( e.type==='DOMMouseScroll' || e.type==='mousewheel' ){
           if( dragZoom.el.zoomer ){ dragZoom.zoom(e); }
         }else{
