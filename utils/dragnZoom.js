@@ -23,8 +23,8 @@ export const dragnZoom = {
     if (!el.move) {
       el.onmousedown = dragnZoom.touch;
       el.ontouchstart = dragnZoom.touch;
-      el.addEventListener('DOMMouseScroll', dragnZoom.touch, false);
-      el.addEventListener('mousewheel', dragnZoom.touch, false);
+      el.addEventListener('DOMMouseScroll', dragnZoom.touch);
+      el.addEventListener('mousewheel', dragnZoom.touch);
       el.move = (xy) => {
         if (el.wh[0] >= el.whP[0]) {
           if (xy[0] > 0) {

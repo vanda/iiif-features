@@ -140,7 +140,7 @@
     const arcs = compariscope.imgs.length;
     let rangeHTML = '';
     for (let i = 0; i < arcs; ++i) {
-      rangeHTML += `<div style="width:${(i*100/(arcs-1))}%">${(i+1)}</div>`;
+      rangeHTML += '<div style="width:' + (i * 100 / (arcs - 1)) +'%">' + (i + 1) + '</div>';
     }
     range.innerHTML = rangeHTML;
     fader.max = arcs;
