@@ -19,7 +19,10 @@ export const dragnZoom = {
   init: (el, opt) => {
     el.zoomer = (opt && opt.zoom) ? opt.zoom : true;
     dragnZoom.size(el);
-    el.xy = [el.getBoundingClientRect().left, el.getBoundingClientRect().top];
+    el.xy = [
+      el.getBoundingClientRect().left - el.parentNode.getBoundingClientRect().left,
+      el.getBoundingClientRect().top - el.parentNode.getBoundingClientRect().top
+    ];
     if (!el.move) {
       el.onmousedown = dragnZoom.touch;
       el.ontouchstart = dragnZoom.touch;
