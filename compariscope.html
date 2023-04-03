@@ -108,7 +108,7 @@
     for( i=0; i<this.imgs.length; ++i ){
       img = this.imgs[i];
       dragnZoom.size(img);
-      img.xyP = xyP;
+      img._props.xyP = xyP;
     }
   }
 
@@ -182,22 +182,22 @@
     }
   }
 
-  document.onkeydown = function(e){
+  document.onkeydown = (e) => {
     if (e.key.indexOf('Arrow') === 0 && !e.target.matches('input')) {
       e.preventDefault();
       const el = compariscope.imgs[compariscope.index - 1];
       switch (e.key) {
         case 'ArrowUp':
-          el.moveBy([0, -1]);
+          el._props.moveBy([0, -1]);
           break;
         case 'ArrowDown':
-          el.moveBy([0, 1]);
+          el._props.moveBy([0, 1]);
           break;
         case 'ArrowLeft':
-          el.moveBy([-1, 0]);
+          el._props.moveBy([-1, 0]);
           break;
         case 'ArrowRight':
-          el.moveBy([1, 0]);
+          el._props.moveBy([1, 0]);
           break;
       }
     }
@@ -230,12 +230,11 @@
         this.style.width = 'auto'; this.style.height = '100%';
       }
       setTimeout(function(){
-        dragnZoom.size(img);
+        dragnZoom.init(img, {'zoom': true});
         if (region) {
-          img.style.left = `-${img.wh[0] * (region[0] / 100)}px`;
-          img.style.top = `-${img.wh[1] * (region[1] / 100)}px`;
+          img.style.left = `-${img._props.wh[0] * (region[0] / 100)}px`;
+          img.style.top = `-${img._props.wh[1] * (region[1] / 100)}px`;
         }
-        dragnZoom.init(img, {'zoom':1, 'siblings':compariscope.imgs});
       }, 0);
       compariscope.fade(compariscope.imgs.length);
     }
@@ -262,22 +261,22 @@
 
   imgLock.onclick = (e) => {
     imgLock.classList.toggle('active');
-    for (let i = 0; i < compariscope.imgs.length; ++i) {
-      compariscope.imgs[i].lock = imgLock.classList.contains('active') ? true : false;
+    for (let i = 0; i < compariscope.imgs.length; ++i) {console.log(compariscope.imgs[i]);
+      compariscope.imgs[i]._props.siblingLock = imgLock.classList.contains('active') ? true : false;
     }
   };
 
-  imgSnap.onclick = function(e){
-    var i = compariscope.index - 1,
-      img = compariscope.imgs[i],
-      lock0 = img.lock;
-    compariscope.style.width = img.wh[0]+'px'; compariscope.style.height = img.wh[1]+'px';
-    for( i=0; i<compariscope.imgs.length; ++i ){
+  imgSnap.onclick = (e) => {
+    const img = compariscope.imgs[compariscope.index - 1];
+    const lock0 = img._props.siblingLock;
+    compariscope.style.width = `${img._props.wh[0]}px`;
+    compariscope.style.height = `${img._props.wh[1]}px`;
+    for (let i = 0; i < compariscope.imgs.length; i++) {
       dragnZoom.size(compariscope.imgs[i]);
     }
-    img.lock = 1;
-    img.move([0,0]);
-    if( !lock0 ) img.lock = 0;
+    img._props.siblingLock = 1;
+    img._props.move([0,0]);
+    img._props.siblingLock = lock0;
   };
 
   fader.oninput = function(e){
@@ -295,14 +294,14 @@
     let html = '';
     for (let i = 0; i < compariscope.imgs.length; ++i) {
       let img = compariscope.imgs[i];
-      if (img.xy[0] > 0 || img.xy[1] > 0 || img.xy[0] + img.wh[0] < img.whP[0] || img.xy[1] + img.wh[1] < img.whP[1]) {
+      if (img._props.xy[0] > 0 || img._props.xy[1] > 0 || img._props.xy[0] + img._props.wh[0] < img._props.whP[0] || img._props.xy[1] + img._props.wh[1] < img._props.whP[1]) {
         alert(`Layer ${(i+1)} is under-cropped!`);
         return;
       }
-      region.x = Number(Math.round((-100*img.xy[0]/img.wh[0])+"e+3")+"e-3");
-      region.y = Number(Math.round((-100*img.xy[1]/img.wh[1])+"e+3")+"e-3");
-      region.w = Number(Math.round((100*img.whP[0]/img.wh[0])+"e+3")+"e-3");
-      region.h = Number(Math.round((100*img.whP[1]/img.wh[1])+"e+3")+"e-3");
+      region.x = Number(Math.round((-100*img._props.xy[0]/img._props.wh[0])+"e+3")+"e-3");
+      region.y = Number(Math.round((-100*img._props.xy[1]/img._props.wh[1])+"e+3")+"e-3");
+      region.w = Number(Math.round((100*img._props.whP[0]/img._props.wh[0])+"e+3")+"e-3");
+      region.h = Number(Math.round((100*img._props.whP[1]/img._props.wh[1])+"e+3")+"e-3");
       const regionQry = `pct:${region.x},${region.y},${region.w},${region.h}`;
       let src = img.src.replace('full/full/', regionQry + '/full/');
       let srcset = '';

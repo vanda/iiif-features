@@ -13,17 +13,19 @@ export const dragnZoom = {
       Math.round(el.parentNode.getBoundingClientRect().width),
       Math.round(el.parentNode.getBoundingClientRect().height)
     ];
-    el.style.width = `${el.wh[0]}px`;
-    el.style.height = `${el.wh[1]}px`;
+    el.style.width = `${el._props.wh[0]}px`;
+    el.style.height = `${el._props.wh[1]}px`;
   },
-  init: (el, opt) => {
-    el._props.zoomer = (opt && opt.zoom) ? opt.zoom : true;
+  init: (el, opt = {}) => {
+    el._props = {
+      zoomer: opt.zoom || true
+    };
     dragnZoom.size(el);
     el._props.xy = [
       el.getBoundingClientRect().left - el.parentNode.getBoundingClientRect().left,
       el.getBoundingClientRect().top - el.parentNode.getBoundingClientRect().top
     ];
-    el.dataset.dragnZoomElement = true;
+    el.dataset.dragnZoomElement = 'true';
     if (!el._props.move) {
       el.onmousedown = dragnZoom.touch;
       el.ontouchstart = dragnZoom.touch;
@@ -44,9 +46,29 @@ export const dragnZoom = {
             xy[1] = el._props.whP[1] - el._props.wh[1];
           }
         }
-        el.style.left = `${xy[0]}px`;
-        el.style.top = `${xy[1]}px`;
-        el._props.xy = xy;
+        if (el._props.siblingLock) {
+          const dXY = [
+            xy[0] - el._props.xy[0],
+            xy[1] - el._props.xy[1]
+          ]; 
+          Array.from(el.parentNode.querySelectorAll('[data-dragn-zoom-element]'), (sibling) => {
+            if (sibling._props.siblingLock) {
+              sibling.moveBy(xy2);
+            }
+          });
+        } else {
+          el.style.left = `${xy[0]}px`;
+          el.style.top = `${xy[1]}px`;
+          el._props.xy = xy;
+        }
+      };
+      el._props.moveBy = (xy) => {
+        el._props.xy = [
+          el._props.xy[0] + xy[0],
+          el._props.xy[1] + xy[1]
+        ];
+        el.style.left = `${el._props.xy[0]}px`;
+        el.style.top = `${el._props.xy[1]}px`;
       };
       if (el._props.zoomer) {
         el._props.zoom = (z) => {
@@ -76,7 +98,7 @@ export const dragnZoom = {
     e.preventDefault();
     if (e.type === 'touchstart' && e.touches && e.touches.length > 2) return;
     dragnZoom.el = e.currentTarget;
-    dragnZoom.el.dataset.dragnZoomActive = true;
+    dragnZoom.el.dataset.dragnZoomActive = 'true';
     dragnZoom.xy0 = dragnZoom.el._props.xy;
     if (e.type === 'touchstart') {
       if (dragnZoom.el._props.zoomer && e.touches && e.touches.length === 2) {
