@@ -232,8 +232,10 @@
       setTimeout(function(){
         dragnZoom.init(img, {'zoom': true});
         if (region) {
-          img.style.left = `-${img._props.wh[0] * (region[0] / 100)}px`;
-          img.style.top = `-${img._props.wh[1] * (region[1] / 100)}px`;
+          img._props.move([
+            -Math.round(img._props.wh[0] * (region[0] / 100)),
+            -Math.round(img._props.wh[1] * (region[1] / 100))
+          ]);
         }
       }, 0);
       compariscope.fade(compariscope.imgs.length);
@@ -261,7 +263,7 @@
 
   imgLock.onclick = (e) => {
     imgLock.classList.toggle('active');
-    for (let i = 0; i < compariscope.imgs.length; ++i) {console.log(compariscope.imgs[i]);
+    for (let i = 0; i < compariscope.imgs.length; ++i) {
       compariscope.imgs[i]._props.siblingLock = imgLock.classList.contains('active') ? true : false;
     }
   };

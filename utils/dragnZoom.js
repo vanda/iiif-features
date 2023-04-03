@@ -53,7 +53,7 @@ export const dragnZoom = {
           ]; 
           Array.from(el.parentNode.querySelectorAll('[data-dragn-zoom-element]'), (sibling) => {
             if (sibling._props.siblingLock) {
-              sibling.moveBy(xy2);
+              sibling._props.moveBy(dXY);
             }
           });
         } else {
