@@ -73,9 +73,18 @@ export const dragnZoom = {
       if (el._props.zoomer) {
         el._props.zoom = (z) => {
           if (el._props.wh[0] * z > el._props.whP[0] && el._props.wh[1] * z > el._props.whP[1]) {
-            const xy0 = [dragnZoom.xyT[0] + el._props.xy[0], dragnZoom.xyT[1] + el._props.xy[1]];
-            el._props.move([xy0[0] - ((xy0[0] - el._props.xy[0]) * z), xy0[1] - ((xy0[1] - el._props.xy[1]) * z)]);
-            el._props.wh = [el._props.wh[0] * z, el._props.wh[1] * z];
+            const xy0 = [
+              dragnZoom.xyT[0] + el._props.xy[0],
+              dragnZoom.xyT[1] + el._props.xy[1]
+            ];
+            el._props.move([
+              xy0[0] - ((xy0[0] - el._props.xy[0]) * z),
+              xy0[1] - ((xy0[1] - el._props.xy[1]) * z)
+            ]);
+            el._props.wh = [
+              el._props.wh[0] * z,
+              el._props.wh[1] * z
+            ];
             el.style.width = `${el._props.wh[0]}px`;
             el.style.height = `${el._props.wh[1]}px`;
           } else {
@@ -88,7 +97,10 @@ export const dragnZoom = {
               el.style.height = '100%';
               el._props.move([el._props.xy[0], 0]);
             }
-            el._props.wh = [el.getBoundingClientRect().width, el.getBoundingClientRect().height];
+            el._props.wh = [
+              el.getBoundingClientRect().width,
+              el.getBoundingClientRect().height
+            ];
           }
         };
       }
