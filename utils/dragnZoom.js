@@ -5,11 +5,11 @@ export const dragnZoom = {
   xyE: null,
   d0: null,
   size: (el) => {
-    el.wh = [
+    el._props.wh = [
       Math.ceil(el.getBoundingClientRect().width),
       Math.ceil(el.getBoundingClientRect().height)
     ];
-    el.whP = [
+    el._props.whP = [
       Math.round(el.parentNode.getBoundingClientRect().width),
       Math.round(el.parentNode.getBoundingClientRect().height)
     ];
@@ -17,55 +17,56 @@ export const dragnZoom = {
     el.style.height = `${el.wh[1]}px`;
   },
   init: (el, opt) => {
-    el.zoomer = (opt && opt.zoom) ? opt.zoom : true;
+    el._props.zoomer = (opt && opt.zoom) ? opt.zoom : true;
     dragnZoom.size(el);
-    el.xy = [
+    el._props.xy = [
       el.getBoundingClientRect().left - el.parentNode.getBoundingClientRect().left,
       el.getBoundingClientRect().top - el.parentNode.getBoundingClientRect().top
     ];
-    if (!el.move) {
+    el.dataset.dragnZoomElement = true;
+    if (!el._props.move) {
       el.onmousedown = dragnZoom.touch;
       el.ontouchstart = dragnZoom.touch;
       el.addEventListener('DOMMouseScroll', dragnZoom.touch);
       el.addEventListener('mousewheel', dragnZoom.touch);
-      el.move = (xy) => {
-        if (el.wh[0] >= el.whP[0]) {
+      el._props.move = (xy) => {
+        if (el._props.wh[0] >= el._props.whP[0]) {
           if (xy[0] > 0) {
             xy[0] = 0;
-          } else if (xy[0] < el.whP[0] - el.wh[0]) {
-            xy[0] = el.whP[0] - el.wh[0];
+          } else if (xy[0] < el._props.whP[0] - el._props.wh[0]) {
+            xy[0] = el._props.whP[0] - el._props.wh[0];
           }
         }
-        if (el.wh[1] >= el.whP[1]) {
+        if (el._props.wh[1] >= el._props.whP[1]) {
           if (xy[1] > 0) {
             xy[1] = 0;
-          } else if (xy[1] < el.whP[1] - el.wh[1]) {
-            xy[1] = el.whP[1] - el.wh[1];
+          } else if (xy[1] < el._props.whP[1] - el._props.wh[1]) {
+            xy[1] = el._props.whP[1] - el._props.wh[1];
           }
         }
         el.style.left = `${xy[0]}px`;
         el.style.top = `${xy[1]}px`;
-        el.xy = xy;
+        el._props.xy = xy;
       };
-      if (el.zoomer) {
-        el.zoom = (z) => {
-          if (el.wh[0] * z > el.whP[0] && el.wh[1] * z > el.whP[1]) {
-            const xy0 = [dragnZoom.xyT[0] + el.xy[0], dragnZoom.xyT[1] + el.xy[1]];
-            el.move([xy0[0] - ((xy0[0] - el.xy[0]) * z), xy0[1] - ((xy0[1] - el.xy[1]) * z)]);
-            el.wh = [el.wh[0] * z, el.wh[1] * z];
-            el.style.width = `${el.wh[0]}px`;
-            el.style.height = `${el.wh[1]}px`;
+      if (el._props.zoomer) {
+        el._props.zoom = (z) => {
+          if (el._props.wh[0] * z > el._props.whP[0] && el._props.wh[1] * z > el._props.whP[1]) {
+            const xy0 = [dragnZoom.xyT[0] + el._props.xy[0], dragnZoom.xyT[1] + el._props.xy[1]];
+            el._props.move([xy0[0] - ((xy0[0] - el._props.xy[0]) * z), xy0[1] - ((xy0[1] - el._props.xy[1]) * z)]);
+            el._props.wh = [el._props.wh[0] * z, el._props.wh[1] * z];
+            el.style.width = `${el._props.wh[0]}px`;
+            el.style.height = `${el._props.wh[1]}px`;
           } else {
-            if ((el.whP[0] / el.wh[0]) * el.wh[1] > el.whP[1]) {
+            if ((el._props.whP[0] / el._props.wh[0]) * el._props.wh[1] > el._props.whP[1]) {
               el.style.width = '100%';
               el.style.height = 'auto';
-              el.move([0, el.xy[1]]);
+              el._props.move([0, el._props.xy[1]]);
             } else {
               el.style.width = 'auto';
               el.style.height = '100%';
-              el.move([el.xy[0], 0]);
+              el._props.move([el._props.xy[0], 0]);
             }
-            el.wh = [el.getBoundingClientRect().width, el.getBoundingClientRect().height];
+            el._props.wh = [el.getBoundingClientRect().width, el.getBoundingClientRect().height];
           }
         };
       }
@@ -76,9 +77,9 @@ export const dragnZoom = {
     if (e.type === 'touchstart' && e.touches && e.touches.length > 2) return;
     dragnZoom.el = e.currentTarget;
     dragnZoom.el.dataset.dragnZoomActive = true;
-    dragnZoom.xy0 = dragnZoom.el.xy;
+    dragnZoom.xy0 = dragnZoom.el._props.xy;
     if (e.type === 'touchstart') {
-      if (dragnZoom.el.zoomer && e.touches && e.touches.length === 2) {
+      if (dragnZoom.el._props.zoomer && e.touches && e.touches.length === 2) {
         dragnZoom.xyT = [e.offsetX, e.offsetY];
         dragnZoom.d0 = Math.sqrt(
           ((e.touches[0].pageX - e.touches[1].pageX) ** 2)
@@ -98,7 +99,7 @@ export const dragnZoom = {
     } else {
       if (e.type === 'DOMMouseScroll' || e.type === 'mousewheel') { // eslint-disable-line no-lonely-if
         dragnZoom.xyT = [e.offsetX, e.offsetY];
-        if (dragnZoom.el.zoomer) dragnZoom.zoom(e);
+        if (dragnZoom.el._props.zoomer) dragnZoom.zoom(e);
       } else {
         dragnZoom.xyT = [e.pageX, e.pageY];
         document.onmousemove = dragnZoom.drag;
@@ -117,14 +118,14 @@ export const dragnZoom = {
       dragnZoom.xy0[0] + dragnZoom.xyE[0] - dragnZoom.xyT[0],
       dragnZoom.xy0[1] + dragnZoom.xyE[1] - dragnZoom.xyT[1]
     ];
-    dragnZoom.el.move(xy);
+    dragnZoom.el._props.move(xy);
   },
   release: () => {
     dragnZoom.el.dataset.dragnZoomActive = false;
     dragnZoom.el = dragnZoom.xyE = dragnZoom.d0 = null;
   },
   zoom: (e) => {
-    const tD = e.timeStamp - dragnZoom.el.zT;
+    const tD = e.timeStamp - dragnZoom.el._props.zT;
     const zZ = tD < 10 ? 23 : 3;
     let z = 1;
     if (e.touches) {
@@ -132,13 +133,13 @@ export const dragnZoom = {
         ((e.touches[0].pageX - e.touches[1].pageX) ** 2)
         + ((e.touches[0].pageY - e.touches[1].pageY) ** 2)
       );
-      z = 1 + ((d1 - dragnZoom.d0 > 0 ? (d1 / dragnZoom.el.whP[0]) : -0.5) * 0.1);
+      z = 1 + ((d1 - dragnZoom.d0 > 0 ? (d1 / dragnZoom.el._props.whP[0]) : -0.5) * 0.1);
       dragnZoom.d0 = d1;
     } else {
       z = (e.detail ? e.detail * -1 : e.wheelDelta / 40);
       z = 1 + ((z > 0 ? 1 : -1) * 0.005 * zZ);
     }
-    dragnZoom.el.zT = e.timeStamp;
-    dragnZoom.el.zoom(z);
+    dragnZoom.el._props.zT = e.timeStamp;
+    dragnZoom.el._props.zoom(z);
   }
 };
