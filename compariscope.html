@@ -264,21 +264,22 @@
   imgLock.onclick = (e) => {
     imgLock.classList.toggle('active');
     for (let i = 0; i < compariscope.imgs.length; ++i) {
-      compariscope.imgs[i]._props.siblingLock = imgLock.classList.contains('active') ? true : false;
+      compariscope.imgs[i]._props.siblingLock = imgLock.classList.contains('active');
     }
   };
 
   imgSnap.onclick = (e) => {
     const img = compariscope.imgs[compariscope.index - 1];
-    const lock0 = img._props.siblingLock;
     compariscope.style.width = `${img._props.wh[0]}px`;
     compariscope.style.height = `${img._props.wh[1]}px`;
     for (let i = 0; i < compariscope.imgs.length; i++) {
       dragnZoom.size(compariscope.imgs[i]);
+      compariscope.imgs[i]._props.siblingLock = true;
     }
-    img._props.siblingLock = 1;
     img._props.move([0,0]);
-    img._props.siblingLock = lock0;
+    for (let i = 0; i < compariscope.imgs.length; i++) {
+      compariscope.imgs[i]._props.siblingLock = imgLock.classList.contains('active');
+    }
   };
 
   fader.oninput = function(e){
