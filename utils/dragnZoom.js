@@ -109,7 +109,9 @@ export const dragnZoom = {
           if (el._props.siblingLock) {
             Array.from(el.parentNode.querySelectorAll('[data-dragn-zoom-element]'), (sibling) => {
               if (sibling !== el && sibling._props.siblingLock) {
+                sibling._props.siblingLock = false;
                 sibling._props.zoom(z);
+                sibling._props.siblingLock = true;
               }
             });
           }
