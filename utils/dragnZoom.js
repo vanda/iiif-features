@@ -52,26 +52,30 @@ export const dragnZoom = {
             xy[1] - el._props.xy[1]
           ]; 
           Array.from(el.parentNode.querySelectorAll('[data-dragn-zoom-element]'), (sibling) => {
-            if (sibling._props.siblingLock) {
+            if (sibling !== el && sibling._props.siblingLock) {
               sibling._props.moveBy(dXY);
             }
           });
-        } else {
-          el.style.left = `${xy[0]}px`;
-          el.style.top = `${xy[1]}px`;
-          el._props.xy = xy;
         }
+        el._props.xy = xy;
+        window.requestAnimationFrame(() => {
+          el.style.left = `${el._props.xy[0]}px`;
+          el.style.top = `${el._props.xy[1]}px`;
+        });
       };
       el._props.moveBy = (xy) => {
         el._props.xy = [
           el._props.xy[0] + xy[0],
           el._props.xy[1] + xy[1]
         ];
-        el.style.left = `${el._props.xy[0]}px`;
-        el.style.top = `${el._props.xy[1]}px`;
+        window.requestAnimationFrame(() => {
+          el.style.left = `${el._props.xy[0]}px`;
+          el.style.top = `${el._props.xy[1]}px`;
+        });
       };
       if (el._props.zoomer) {
         el._props.zoom = (z) => {
+          let wh = [];
           if (el._props.wh[0] * z > el._props.whP[0] && el._props.wh[1] * z > el._props.whP[1]) {
             const xy0 = [
               dragnZoom.xyT[0] + el._props.xy[0],
@@ -81,26 +85,33 @@ export const dragnZoom = {
               xy0[0] - ((xy0[0] - el._props.xy[0]) * z),
               xy0[1] - ((xy0[1] - el._props.xy[1]) * z)
             ]);
-            el._props.wh = [
-              el._props.wh[0] * z,
-              el._props.wh[1] * z
+            wh = [
+              `${el._props.wh[0]}px`,
+              `${el._props.wh[1]}px`
             ];
-            el.style.width = `${el._props.wh[0]}px`;
-            el.style.height = `${el._props.wh[1]}px`;
           } else {
             if ((el._props.whP[0] / el._props.wh[0]) * el._props.wh[1] > el._props.whP[1]) {
-              el.style.width = '100%';
-              el.style.height = 'auto';
+              wh = ['100%', 'auto'];
               el._props.move([0, el._props.xy[1]]);
             } else {
-              el.style.width = 'auto';
-              el.style.height = '100%';
+              wh = ['auto', '100%'];
               el._props.move([el._props.xy[0], 0]);
             }
+          }
+          window.requestAnimationFrame(() => {
+            el.style.width = wh[0];
+            el.style.height = wh[1];
             el._props.wh = [
               el.getBoundingClientRect().width,
               el.getBoundingClientRect().height
             ];
+          });
+          if (el._props.siblingLock) {
+            Array.from(el.parentNode.querySelectorAll('[data-dragn-zoom-element]'), (sibling) => {
+              if (sibling !== el && sibling._props.siblingLock) {
+                sibling._props.zoom(z);
+              }
+            });
           }
         };
       }
