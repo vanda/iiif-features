@@ -18,7 +18,8 @@ export const dragnZoom = {
   },
   init: (el, opt = {}) => {
     el._props = {
-      zoomer: opt.zoom || true
+      zoomer: opt.zoom || true,
+      bound: opt.bound || false
     };
     dragnZoom.size(el);
     el._props.xy = [
@@ -32,18 +33,20 @@ export const dragnZoom = {
       el.addEventListener('DOMMouseScroll', dragnZoom.touch);
       el.addEventListener('mousewheel', dragnZoom.touch);
       el._props.move = (xy) => {
-        if (el._props.wh[0] >= el._props.whP[0]) {
-          if (xy[0] > 0) {
-            xy[0] = 0;
-          } else if (xy[0] < el._props.whP[0] - el._props.wh[0]) {
-            xy[0] = el._props.whP[0] - el._props.wh[0];
+        if (el._props.bound) {
+          if (el._props.wh[0] >= el._props.whP[0]) {
+            if (xy[0] > 0) {
+              xy[0] = 0;
+            } else if (xy[0] < el._props.whP[0] - el._props.wh[0]) {
+              xy[0] = el._props.whP[0] - el._props.wh[0];
+            }
           }
-        }
-        if (el._props.wh[1] >= el._props.whP[1]) {
-          if (xy[1] > 0) {
-            xy[1] = 0;
-          } else if (xy[1] < el._props.whP[1] - el._props.wh[1]) {
-            xy[1] = el._props.whP[1] - el._props.wh[1];
+          if (el._props.wh[1] >= el._props.whP[1]) {
+            if (xy[1] > 0) {
+              xy[1] = 0;
+            } else if (xy[1] < el._props.whP[1] - el._props.wh[1]) {
+              xy[1] = el._props.whP[1] - el._props.wh[1];
+            }
           }
         }
         if (el._props.siblingLock) {
@@ -76,7 +79,17 @@ export const dragnZoom = {
       if (el._props.zoomer) {
         el._props.zoom = (z) => {
           let wh = [];
-          if (el._props.wh[0] * z > el._props.whP[0] && el._props.wh[1] * z > el._props.whP[1]) {
+          if (el._props.bound &&
+            (el._props.wh[0] * z < el._props.whP[0] || el._props.wh[1] * z < el._props.whP[1])
+            ) {
+            if ((el._props.whP[0] / el._props.wh[0]) * el._props.wh[1] > el._props.whP[1]) {
+              wh = ['100%', 'auto'];
+              el._props.move([0, el._props.xy[1]]);
+            } else {
+              wh = ['auto', '100%'];
+              el._props.move([el._props.xy[0], 0]);
+            }
+          } else {
             const xy0 = [
               dragnZoom.xyT[0] + el._props.xy[0],
               dragnZoom.xyT[1] + el._props.xy[1]
@@ -89,14 +102,6 @@ export const dragnZoom = {
               `${el._props.wh[0] * z}px`,
               `${el._props.wh[1] * z}px`
             ];
-          } else {
-            if ((el._props.whP[0] / el._props.wh[0]) * el._props.wh[1] > el._props.whP[1]) {
-              wh = ['100%', 'auto'];
-              el._props.move([0, el._props.xy[1]]);
-            } else {
-              wh = ['auto', '100%'];
-              el._props.move([el._props.xy[0], 0]);
-            }
           }
           window.requestAnimationFrame(() => {
             el.style.width = wh[0];
@@ -108,7 +113,7 @@ export const dragnZoom = {
           });
           if (el._props.siblingLock) {
             Array.from(el.parentNode.querySelectorAll('[data-dragn-zoom-element]'), (sibling) => {
-              if (sibling !== el && sibling._props.siblingLock) {
+              if (sibling._props.siblingLock && sibling !== el) {
                 sibling._props.siblingLock = false;
                 sibling._props.zoom(z);
                 sibling._props.siblingLock = true;
