@@ -254,10 +254,11 @@
     compariscope.fade(parseFloat(fader.value) + 1);
   };
 
-  imgRemove.onclick = function(e){
-    var i = compariscope.index - 1;
+  imgRemove.onclick = (e) => {
+    const i = compariscope.index - 1;
     compariscope.removeChild(compariscope.imgs[i]);
     compariscope.imgs.splice(i, 1);
+    compariscope.index -= 1;
     compariscope.range();
   };
 
