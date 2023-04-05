@@ -79,15 +79,15 @@ export const dragnZoom = {
       if (el._props.zoomer) {
         el._props.zoom = (z) => {
           let wh = [];
-          if (el._props.bound &&
-            (el._props.wh[0] * z < el._props.whP[0] || el._props.wh[1] * z < el._props.whP[1])
-            ) {
-            if ((el._props.whP[0] / el._props.wh[0]) * el._props.wh[1] > el._props.whP[1]) {
-              wh = ['100%', 'auto'];
-              el._props.move([0, el._props.xy[1]]);
-            } else {
-              wh = ['auto', '100%'];
-              el._props.move([el._props.xy[0], 0]);
+          if (el._props.bound) {
+            if (el._props.wh[0] * z < el._props.whP[0] || el._props.wh[1] * z < el._props.whP[1]) {
+              if ((el._props.whP[0] / el._props.wh[0]) * el._props.wh[1] > el._props.whP[1]) {
+                wh = ['100%', 'auto'];
+                el._props.move([0, el._props.xy[1]]);
+              } else {
+                wh = ['auto', '100%'];
+                el._props.move([el._props.xy[0], 0]);
+              }
             }
           } else {
             const xy0 = [
