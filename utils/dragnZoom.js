@@ -22,6 +22,10 @@ export const dragnZoom = {
       bound: opt.bound || false
     };
     dragnZoom.size(el);
+    el._props.xyP = [
+      el.parentNode.getBoundingClientRect().left - el.parentNode.parentNode.getBoundingClientRect().left,
+      el.parentNode.getBoundingClientRect().top - el.parentNode.parentNode.getBoundingClientRect().top
+    ];
     el._props.xy = [
       el.getBoundingClientRect().left - el.parentNode.getBoundingClientRect().left,
       el.getBoundingClientRect().top - el.parentNode.getBoundingClientRect().top
@@ -56,7 +60,9 @@ export const dragnZoom = {
           ]; 
           Array.from(el.parentNode.querySelectorAll('[data-dragn-zoom-element]'), (sibling) => {
             if (sibling !== el && sibling._props.siblingLock) {
+              sibling._props.siblingLock = false;
               sibling._props.moveBy(dXY);
+              sibling._props.siblingLock = true;
             }
           });
         }
@@ -75,6 +81,15 @@ export const dragnZoom = {
           el.style.left = `${el._props.xy[0]}px`;
           el.style.top = `${el._props.xy[1]}px`;
         });
+        if (el._props.siblingLock) {
+          Array.from(el.parentNode.querySelectorAll('[data-dragn-zoom-element]'), (sibling) => {
+            if (sibling !== el && sibling._props.siblingLock) {
+              sibling._props.siblingLock = false;
+              sibling._props.moveBy(xy);
+              sibling._props.siblingLock = true;
+            }
+          });
+        }
       };
       if (el._props.zoomer) {
         el._props.zoom = (z) => {
@@ -91,9 +106,9 @@ export const dragnZoom = {
             }
           } else {
             const xy0 = [
-              dragnZoom.xyT[0] + el._props.xy[0],
-              dragnZoom.xyT[1] + el._props.xy[1]
-            ];
+              dragnZoom.xyT[0] - el._props.xyP[0],
+              dragnZoom.xyT[1] - el._props.xyP[1]
+            ];                                                   if(el===el.parentNode.querySelector('img:nth-child(1)')) console.log(el._props.xy[0]);
             el._props.move([
               xy0[0] - ((xy0[0] - el._props.xy[0]) * z),
               xy0[1] - ((xy0[1] - el._props.xy[1]) * z)
@@ -113,7 +128,7 @@ export const dragnZoom = {
           });
           if (el._props.siblingLock) {
             Array.from(el.parentNode.querySelectorAll('[data-dragn-zoom-element]'), (sibling) => {
-              if (sibling._props.siblingLock && sibling !== el) {
+              if (sibling !== el && sibling._props.siblingLock) {
                 sibling._props.siblingLock = false;
                 sibling._props.zoom(z);
                 sibling._props.siblingLock = true;
@@ -129,17 +144,16 @@ export const dragnZoom = {
     if (e.type === 'touchstart' && e.touches && e.touches.length > 2) return;
     dragnZoom.el = e.currentTarget;
     dragnZoom.el.dataset.dragnZoomActive = 'true';
+    dragnZoom.xyT = [e.pageX, e.pageY];
     dragnZoom.xy0 = dragnZoom.el._props.xy;
     if (e.type === 'touchstart') {
       if (dragnZoom.el._props.zoomer && e.touches && e.touches.length === 2) {
-        dragnZoom.xyT = [e.offsetX, e.offsetY];
         dragnZoom.d0 = Math.sqrt(
           ((e.touches[0].pageX - e.touches[1].pageX) ** 2)
           + ((e.touches[0].pageY - e.touches[1].pageY) ** 2)
         );
         dragnZoom.el.ontouchmove = dragnZoom.zoom;
       } else {
-        dragnZoom.xyT = [e.pageX, e.pageY];
         dragnZoom.el.ontouchmove = dragnZoom.drag;
       }
       dragnZoom.el.onmousedown = null;
@@ -150,10 +164,8 @@ export const dragnZoom = {
       };
     } else {
       if (e.type === 'DOMMouseScroll' || e.type === 'mousewheel') { // eslint-disable-line no-lonely-if
-        dragnZoom.xyT = [e.offsetX, e.offsetY];
         if (dragnZoom.el._props.zoomer) dragnZoom.zoom(e);
       } else {
-        dragnZoom.xyT = [e.pageX, e.pageY];
         document.onmousemove = dragnZoom.drag;
         document.onmouseup = () => {
           document.onmousemove = null;

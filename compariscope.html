@@ -80,7 +80,7 @@
 
   function getComputed(el,style){ var s; if( style=='width' ){ s=el.getBoundingClientRect().right-el.getBoundingClientRect().left; }else if( style=='height' ){ s=el.getBoundingClientRect().bottom-el.getBoundingClientRect().top }else if(window.getComputedStyle){ s=document.defaultView.getComputedStyle(el,null).getPropertyValue(style); }else if(el.currentStyle){ s=el.currentStyle[style] } return parseFloat(s); }
   function getPgOffset(el){ var o=[0,0]; if( el.offsetParent ){ do{ o=[o[0]+el.offsetLeft,o[1]+el.offsetTop]; }while( el=el.offsetParent ) } return [o[0]+document.body.scrollLeft,o[1]+document.body.scrollTop]; } 
-  function getXY(e){ var xy=[]; if( e.touches && e.touches.length ){ if( e.touches.length>1 ){ xy[0] = (e.touches[0].pageX+e.touches[0].pageX)/2; xy[1] = (e.touches[0].pageY+e.touches[0].pageY)/2;}else{ xy[0] = e.touches[0].pageX; xy[1] = e.touches[0].pageY; } }else{ xy[0] = e.pageX; xy[1] = e.pageY; } return xy; }
+  function getXY(e){ var xy=[]; if( e.touches && e.touches.length ){ if( e.touches.length>1 ){ xy[0] = (e.touches[0].pageX+e.touches[1].pageX)/2; xy[1] = (e.touches[0].pageY+e.touches[1].pageY)/2;}else{ xy[0] = e.touches[0].pageX; xy[1] = e.touches[0].pageY; } }else{ xy[0] = e.pageX; xy[1] = e.pageY; } return xy; }
 
   var compariscope = document.getElementById('cs-editor'),
     viewer = document.getElementById('cs-viewer'),
