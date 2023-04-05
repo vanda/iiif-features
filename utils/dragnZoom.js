@@ -86,8 +86,8 @@ export const dragnZoom = {
               xy0[1] - ((xy0[1] - el._props.xy[1]) * z)
             ]);
             wh = [
-              `${el._props.wh[0]}px`,
-              `${el._props.wh[1]}px`
+              `${el._props.wh[0] * z}px`,
+              `${el._props.wh[1] * z}px`
             ];
           } else {
             if ((el._props.whP[0] / el._props.wh[0]) * el._props.wh[1] > el._props.whP[1]) {
