@@ -34,8 +34,7 @@ export const dragnZoom = {
     if (!el._props.move) {
       el.onmousedown = dragnZoom.touch;
       el.ontouchstart = dragnZoom.touch;
-      el.addEventListener('DOMMouseScroll', dragnZoom.touch);
-      el.addEventListener('mousewheel', dragnZoom.touch);
+      el.addEventListener('wheel', dragnZoom.touch);
       el._props.move = (xy) => {
         if (el._props.bound) {
           if (el._props.wh[0] >= el._props.whP[0]) {
@@ -108,7 +107,7 @@ export const dragnZoom = {
             const xy0 = [
               dragnZoom.xyT[0] - el._props.xyP[0],
               dragnZoom.xyT[1] - el._props.xyP[1]
-            ];                                                   if(el===el.parentNode.querySelector('img:nth-child(1)')) console.log(el._props.xy[0]);
+            ];
             el._props.move([
               xy0[0] - ((xy0[0] - el._props.xy[0]) * z),
               xy0[1] - ((xy0[1] - el._props.xy[1]) * z)
@@ -128,7 +127,7 @@ export const dragnZoom = {
           });
           if (el._props.siblingLock) {
             Array.from(el.parentNode.querySelectorAll('[data-dragn-zoom-element]'), (sibling) => {
-              if (sibling !== el && sibling._props.siblingLock) {
+              if (sibling !== el && sibling._props.siblingLock) {console.log(sibling);
                 sibling._props.siblingLock = false;
                 sibling._props.zoom(z);
                 sibling._props.siblingLock = true;
@@ -163,8 +162,11 @@ export const dragnZoom = {
         dragnZoom.release();
       };
     } else {
-      if (e.type === 'DOMMouseScroll' || e.type === 'mousewheel') { // eslint-disable-line no-lonely-if
-        if (dragnZoom.el._props.zoomer) dragnZoom.zoom(e);
+      if (e.type === 'wheel') { // eslint-disable-line no-lonely-if
+        if (dragnZoom.el._props.zoomer) {
+          dragnZoom.zoom(e);
+          dragnZoom.release();
+        }
       } else {
         document.onmousemove = dragnZoom.drag;
         document.onmouseup = () => {
@@ -185,7 +187,7 @@ export const dragnZoom = {
     dragnZoom.el._props.move(xy);
   },
   release: () => {
-    dragnZoom.el.dataset.dragnZoomActive = false;
+    dragnZoom.el.dataset.dragnZoomActive = 'false';
     dragnZoom.el = dragnZoom.xyE = dragnZoom.d0 = null;
   },
   zoom: (e) => {
@@ -200,7 +202,7 @@ export const dragnZoom = {
       z = 1 + ((d1 - dragnZoom.d0 > 0 ? (d1 / dragnZoom.el._props.whP[0]) : -0.5) * 0.1);
       dragnZoom.d0 = d1;
     } else {
-      z = (e.detail ? e.detail * -1 : e.wheelDelta / 40);
+      z = -e.deltaY / 40;
       z = 1 + ((z > 0 ? 1 : -1) * 0.005 * zZ);
     }
     dragnZoom.el._props.zT = e.timeStamp;
