@@ -107,7 +107,7 @@ export const dragnZoom = {
             const xy0 = [
               dragnZoom.xyT[0] - el._props.xyP[0],
               dragnZoom.xyT[1] - el._props.xyP[1]
-            ];
+            ];                                                   //if(el===el.parentNode.querySelector('img:nth-child(1)')) { console.log(xy0[1]); }
             el._props.move([
               xy0[0] - ((xy0[0] - el._props.xy[0]) * z),
               xy0[1] - ((xy0[1] - el._props.xy[1]) * z)
@@ -127,7 +127,7 @@ export const dragnZoom = {
           });
           if (el._props.siblingLock) {
             Array.from(el.parentNode.querySelectorAll('[data-dragn-zoom-element]'), (sibling) => {
-              if (sibling !== el && sibling._props.siblingLock) {console.log(sibling);
+              if (sibling !== el && sibling._props.siblingLock) {
                 sibling._props.siblingLock = false;
                 sibling._props.zoom(z);
                 sibling._props.siblingLock = true;
