@@ -27,8 +27,8 @@ const viewer = {
     el.osd = OpenSeadragon({
       id: el.id,
       showNavigationControl: false,
-      zoomPerClick: 1.05,
-      zoomPerScroll: 1.05,
+      zoomPerClick: 1.2,
+      zoomPerScroll: 1.1,
       zoomPerSecond: 0,
       minZoomImageRatio: 1,
       minZoomLevel: 0.5,
@@ -92,7 +92,7 @@ const viewer = {
 const parallaxer = document.querySelector(".js-parallaxer");
 
 const qstr = new Map(location.search.slice(1).split('&').map(kv => kv.split('=')));
-let m = 'img/manifest_peepshow.json';
+let m = 'img/manifest_peepshow.p3.json';
 
 if (!qstr.has('manifest')) {
   document.location.search = 'manifest=' + m;
