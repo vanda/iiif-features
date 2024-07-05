@@ -31,12 +31,12 @@
 							"@type": "oa:Annotation",
 							"motivation": "sc:painting",
 							"resource": {
-								"@id": "https://framemark.vam.ac.uk/static/an_artists_studio_06/full/full/0/default",
+								"@id": "https://beta.vam.ac.uk/iiif/images/2023DM0006/full/full/0/default",
 								"@type": "dctypes:Image",
 								"format": "image/png",
 								"service": {
 									"@context": "http://iiif.io/api/image/2/context.json",
-									"@id": "https://framemark.vam.ac.uk/static/an_artists_studio_06",
+									"@id": "https://beta.vam.ac.uk/iiif/images/2023DM0006",
 									"profile": [
 										"http://iiif.io/api/image/2/level1.json",
 										{
@@ -82,12 +82,12 @@
 							"@type": "oa:Annotation",
 							"motivation": "sc:painting",
 							"resource": {
-								"@id": "https://framemark.vam.ac.uk/static/an_artists_studio_05/full/full/0/default",
+								"@id": "https://beta.vam.ac.uk/iiif/images/2023DM0007/full/full/0/default",
 								"@type": "dctypes:Image",
 								"format": "image/png",
 								"service": {
 									"@context": "http://iiif.io/api/image/2/context.json",
-									"@id": "https://framemark.vam.ac.uk/static/an_artists_studio_05",
+									"@id": "https://beta.vam.ac.uk/iiif/images/2023DM0007",
 									"profile": [
 										"http://iiif.io/api/image/2/level1.json",
 										{
@@ -133,12 +133,12 @@
 							"@type": "oa:Annotation",
 							"motivation": "sc:painting",
 							"resource": {
-								"@id": "https://framemark.vam.ac.uk/static/an_artists_studio_04/full/full/0/default",
+								"@id": "https://beta.vam.ac.uk/iiif/images/2023DM0005/full/full/0/default",
 								"@type": "dctypes:Image",
 								"format": "image/png",
 								"service": {
 									"@context": "http://iiif.io/api/image/2/context.json",
-									"@id": "https://framemark.vam.ac.uk/static/an_artists_studio_04",
+									"@id": "https://beta.vam.ac.uk/iiif/images/2023DM0005",
 									"profile": [
 										"http://iiif.io/api/image/2/level1.json",
 										{
@@ -184,12 +184,12 @@
 							"@type": "oa:Annotation",
 							"motivation": "sc:painting",
 							"resource": {
-								"@id": "https://framemark.vam.ac.uk/static/an_artists_studio_03/full/full/0/default",
+								"@id": "https://beta.vam.ac.uk/iiif/images/2023DM0003/full/full/0/default",
 								"@type": "dctypes:Image",
 								"format": "image/png",
 								"service": {
 									"@context": "http://iiif.io/api/image/2/context.json",
-									"@id": "https://framemark.vam.ac.uk/static/an_artists_studio_03",
+									"@id": "https://beta.vam.ac.uk/iiif/images/2023DM0003",
 									"profile": [
 										"http://iiif.io/api/image/2/level1.json",
 										{
@@ -235,12 +235,12 @@
 							"@type": "oa:Annotation",
 							"motivation": "sc:painting",
 							"resource": {
-								"@id": "https://framemark.vam.ac.uk/static/an_artists_studio_02/full/full/0/default",
+								"@id": "https://beta.vam.ac.uk/iiif/images/2023DM0002/full/full/0/default",
 								"@type": "dctypes:Image",
 								"format": "image/png",
 								"service": {
 									"@context": "http://iiif.io/api/image/2/context.json",
-									"@id": "https://framemark.vam.ac.uk/static/an_artists_studio_02",
+									"@id": "https://beta.vam.ac.uk/iiif/images/2023DM0002",
 									"profile": [
 										"http://iiif.io/api/image/2/level1.json",
 										{
@@ -286,12 +286,12 @@
 							"@type": "oa:Annotation",
 							"motivation": "sc:painting",
 							"resource": {
-								"@id": "https://framemark.vam.ac.uk/static/an_artists_studio_01/full/full/0/default",
+								"@id": "https://beta.vam.ac.uk/iiif/images/2023DM0001/full/full/0/default",
 								"@type": "dctypes:Image",
 								"format": "image/png",
 								"service": {
 									"@context": "http://iiif.io/api/image/2/context.json",
-									"@id": "https://framemark.vam.ac.uk/static/an_artists_studio_01",
+									"@id": "https://beta.vam.ac.uk/iiif/images/2023DM0001",
 									"profile": [
 										"http://iiif.io/api/image/2/level1.json",
 										{
